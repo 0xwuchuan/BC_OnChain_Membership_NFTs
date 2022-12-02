@@ -2,7 +2,8 @@
 pragma solidity ^0.8.13;
 
 import {ERC721} from "solmate/tokens/ERC721.sol";
-import {Ownable} from "openzeppelin-contracts/access/Ownable.sol";
+import {Ownable} from "solady/auth/Ownable.sol";
+import {Base64} from "solady/utils/Base64.sol";
 
 error NonExistentToken();
 
