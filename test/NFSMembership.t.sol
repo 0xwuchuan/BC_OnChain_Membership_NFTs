@@ -3,16 +3,12 @@ pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
 
-import "../src/Token.sol";
+import "../src/NFSMembership.sol";
 
-contract TokenTest is Test {
-    Token t;
+contract NFSMembershipTest is Test {
+    NFSMembership t;
 
     function setUp() public {
-        t = new Token();
-    }
-
-    function testName() public {
-        assertEq(t.name(), "Token");
+        t = new NFSMembership();
     }
 }
