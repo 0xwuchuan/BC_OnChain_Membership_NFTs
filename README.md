@@ -9,12 +9,18 @@ NUS Fintech Society Blockchain Department Winter Project AY22/23
 ```ml
 ├── frontend ── Next.js Frontend
 ├── lib ──Contract Dependencies
+├── script ── Scripts to deploy contracts (Foundry)
 ├── src ──Contract Source Code
 ├── tasks ── Hardhat Tasks
 ├── test ── Tests for Contracts (Hardhat and Foundry)
 ```
 
 ## Getting Started
+
+### Dependencies
+
+* [Foundry](https://getfoundry.sh/)
+  * For windows users, it is better to use WSL so that you can update foundry easily through foundryup
 
 * Use Foundry:
 
