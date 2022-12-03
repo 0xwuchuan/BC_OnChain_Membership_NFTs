@@ -1,15 +1,21 @@
 import { ConnectKitButton } from "connectkit";
+import { truncate } from "fs";
 
 export const ConnectWallet = () => {
 	return (
 		<ConnectKitButton.Custom>
-			{({ isConnected, isConnecting, show, hide, address, ensName }) => {
+			{({
+				isConnected,
+				isConnecting,
+				show,
+				hide,
+				address,
+				truncatedAddress,
+				ensName,
+			}) => {
 				return (
-					<button
-						onClick={show}
-						className="border-2 rounded py-2 px-4"
-					>
-						{isConnected ? address : "Connect"}
+					<button onClick={show}>
+						{isConnected ? ensName ?? truncatedAddress : "Connect"}
 					</button>
 				);
 			}}
