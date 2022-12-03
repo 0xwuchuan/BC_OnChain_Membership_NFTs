@@ -1,4 +1,4 @@
-import { ConnectWallet } from "./connectWallet";
+import { ConnectWallet } from "./connectwallet";
 import Image from "next/image";
 import fintechlogo from "../public/fintechsoc-logo.webp";
 import Link from "next/link";
@@ -9,7 +9,11 @@ export default function Navbar() {
 			<div className="flex items-center justify-between">
 				<div>
 					<Link href="/">
-						<Image src={fintechlogo} alt="logo" className="w-40" />
+						<Image
+							src={fintechlogo}
+							alt="logo"
+							className="w-40 transition duration-100 hover:opacity-75"
+						/>
 					</Link>
 				</div>
 				<div>
@@ -35,6 +39,8 @@ export default function Navbar() {
 							{/* Twitter Logo */}
 							<a
 								href="https://twitter.com/nus_blockchain"
+								target="_blank"
+								rel="noopener noreferrer"
 								className="flex items-center rounded-lg py-2 px-6 bg-secondary hover:bg-opacity-75 transition duration-100"
 							>
 								<svg
@@ -55,6 +61,8 @@ export default function Navbar() {
 							{/* Instagram Logo */}
 							<a
 								href="https://www.instagram.com/nusfintech/"
+								target="_blank"
+								rel="noopener noreferrer"
 								className="flex items-center rounded-lg py-2 px-6 bg-secondary hover:bg-opacity-75 transition duration-100"
 							>
 								<svg
@@ -75,6 +83,8 @@ export default function Navbar() {
 							{/* Github Logo */}
 							<a
 								href="https://github.com/0xwuchuan/BC_On_Chain_Membership"
+								target="_blank"
+								rel="noopener noreferrer"
 								className="flex items-center rounded-lg py-2 px-6 bg-secondary hover:bg-opacity-75 transition duration-100"
 							>
 								<svg
