@@ -12,7 +12,7 @@ const client = createClient(
 		appName: "NFSMembership",
 		//infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
 		alchemyId: alchemyId,
-		chains: [chain.mainnet, chain.goerli],
+		chains: [chain.mainnet, chain.goerli, chain.sepolia],
 	})
 );
 
