@@ -25,7 +25,7 @@ export default function Navbar() {
 								href="/"
 								className="flex items-center rounded-lg py-2 px-6 bg-secondary hover:bg-opacity-75 transition duration-200"
 							>
-								Mint
+								Home
 							</Link>
 						</li>
 						<li>
