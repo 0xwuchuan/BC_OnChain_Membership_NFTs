@@ -11,7 +11,7 @@ export default function Navbar() {
 						<Image
 							src="/fintechsoc-logo.webp"
 							alt="logo"
-							className="w-40 transition duration-100 hover:opacity-75"
+							className="w-40 transition duration-200 hover:opacity-75"
 							width={160}
 							height={81.75}
 						/>
@@ -23,7 +23,7 @@ export default function Navbar() {
 						<li>
 							<Link
 								href="/"
-								className="flex items-center rounded-lg py-2 px-6 bg-secondary hover:bg-opacity-75 transition duration-100"
+								className="flex items-center rounded-lg py-2 px-6 bg-secondary hover:bg-opacity-75 transition duration-200"
 							>
 								Mint
 							</Link>
@@ -31,7 +31,7 @@ export default function Navbar() {
 						<li>
 							<Link
 								href="/about"
-								className="flex items-center rounded-lg py-2 px-6 bg-secondary hover:bg-opacity-75 transition duration-100"
+								className="flex items-center rounded-lg py-2 px-6 bg-secondary hover:bg-opacity-75 transition duration-200"
 							>
 								About
 							</Link>
@@ -42,7 +42,7 @@ export default function Navbar() {
 								href="https://twitter.com/nus_blockchain"
 								target="_blank"
 								rel="noopener noreferrer"
-								className="flex items-center rounded-lg py-2 px-6 bg-secondary hover:bg-opacity-75 transition duration-100"
+								className="flex items-center rounded-lg py-2 px-6 bg-secondary hover:bg-opacity-75 transition duration-200"
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +61,7 @@ export default function Navbar() {
 								href="https://www.instagram.com/nusfintech/"
 								target="_blank"
 								rel="noopener noreferrer"
-								className="flex items-center rounded-lg py-2 px-6 bg-secondary hover:bg-opacity-75 transition duration-100"
+								className="flex items-center rounded-lg py-2 px-6 bg-secondary hover:bg-opacity-75 transition duration-200"
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +80,7 @@ export default function Navbar() {
 								href="https://github.com/0xwuchuan/BC_On_Chain_Membership"
 								target="_blank"
 								rel="noopener noreferrer"
-								className="flex items-center rounded-lg py-2 px-6 bg-secondary hover:bg-opacity-75 transition duration-100"
+								className="flex items-center rounded-lg py-2 px-6 bg-secondary hover:bg-opacity-75 transition duration-200"
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +93,7 @@ export default function Navbar() {
 								</svg>
 							</a>
 						</li>
-						<li className="flex items-center rounded-lg py-2 px-6 bg-secondary hover:bg-opacity-75 transition duration-100">
+						<li className="flex items-center rounded-lg py-2 px-6 bg-secondary hover:bg-opacity-75 transition duration-200">
 							<ConnectWallet />
 						</li>
 					</ul>
