@@ -10,7 +10,7 @@ export default function Layout({ children }: PropsWithChildren) {
 				<link rel="favicon" href="/public/favicon.ico" />
 			</Head>
 			<Navbar></Navbar>
-			<main className="bg-primary h-screen">{children}</main>
+			<main className="h-screen bg-primary">{children}</main>
 		</>
 	);
 }

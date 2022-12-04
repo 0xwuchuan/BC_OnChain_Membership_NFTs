@@ -1,18 +1,19 @@
 import { ConnectWallet } from "./connectwallet";
 import Image from "next/image";
-import fintechlogo from "../public/fintechsoc-logo.webp";
 import Link from "next/link";
 
 export default function Navbar() {
 	return (
-		<header className="fixed top-0 w-full lg:px-12 px-6 lg:pt-8 pt-5">
+		<header className="fixed top-0 w-full lg:px-20 px-6 lg:pt-8 pt-5">
 			<div className="flex items-center justify-between">
 				<div>
 					<Link href="/">
 						<Image
-							src={fintechlogo}
+							src="/fintechsoc-logo.webp"
 							alt="logo"
 							className="w-40 transition duration-100 hover:opacity-75"
+							width={160}
+							height={81.75}
 						/>
 					</Link>
 				</div>
