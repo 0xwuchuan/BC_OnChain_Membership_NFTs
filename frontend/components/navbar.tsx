@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Navbar() {
 	return (
-		<div className="fixed top-0 w-full lg:px-12 px-6 lg:pt-8 pt-5">
+		<header className="fixed top-0 w-full lg:px-12 px-6 lg:pt-8 pt-5">
 			<div className="flex items-center justify-between">
 				<div>
 					<Link href="/">
@@ -16,7 +16,7 @@ export default function Navbar() {
 						/>
 					</Link>
 				</div>
-				<div>
+				<nav>
 					<ul className="flex space-x-4">
 						{/* TODO: Change Font */}
 						<li>
@@ -96,8 +96,8 @@ export default function Navbar() {
 							<ConnectWallet />
 						</li>
 					</ul>
-				</div>
+				</nav>
 			</div>
-		</div>
+		</header>
 	);
 }
