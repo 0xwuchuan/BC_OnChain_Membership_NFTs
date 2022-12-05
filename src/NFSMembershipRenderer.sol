@@ -36,4 +36,8 @@ contract NFSMembershipRenderer {
             )
         );
     }
+
+    function example() external pure returns (string memory) {
+        return render(1);
+    }
 }
