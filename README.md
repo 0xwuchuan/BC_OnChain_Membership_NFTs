@@ -9,6 +9,7 @@ NUS Fintech Society Blockchain Department Winter Project AY22/23
 ```ml
 ├── frontend ── Next.js Frontend
 ├── lib ──Contract Dependencies
+├── hot-chain-svg ── Scripts to preview SVG
 ├── script ── Scripts to deploy contracts (Foundry)
 ├── src ──Contract Source Code
 ├── tasks ── Hardhat Tasks
@@ -54,6 +55,12 @@ npx hardhat example
 
 ```bash
 forge install rari-capital/solmate # Already in this repo, just an example
+```
+
+* Preview SVG using hot-chain-svg
+
+```bash
+npm run preview
 ```
 
 ## Notes
