@@ -39,19 +39,55 @@ contract NFSMembershipTraits {
         return departments[_departmentId];
     }
 
-    function getRole(
-        uint256 _departmentId /*, uint256 _roleId */
-    ) public pure returns (string memory) {
+    function getSubDepartment(uint256 _departmentId, uint256 _subDeptId)
+        public
+        pure
+        returns (string memory)
+    {
         // MACHINE LEARNING
-        if (_departmentId == 0) {}
+        if (_departmentId == 0) {
+            string[3] memory mlRoles = [
+                "ANALYST (RESEARCH)",
+                "ANALYST (PROJECT)",
+                "ANALYST (ALGO TRADING)"
+            ];
+
+            return mlRoles[_subDeptId];
+        }
         // BLOCKCHAIN
-        else if (_departmentId == 1) {}
+        else if (_departmentId == 1) {
+            string[3] memory blockchainRoles = [
+                "RESEARCH ANALYST",
+                "COMMUNITY MANAGER",
+                "BLOCKCHAIN DEVELOPER"
+            ];
+
+            return blockchainRoles[_subDeptId];
+        }
         // SOFTWARE DEVELOPMENT
-        else if (_departmentId == 2) {}
+        else if (_departmentId == 2) {
+            string[2] memory devRoles = ["UIUX DESIGNER", "SOFTWARE ENGINEER"];
+
+            return devRoles[_subDeptId];
+        }
         // INTERNAL AFFAIRS
-        else if (_departmentId == 3) {}
+        else if (_departmentId == 3) {
+            string[5] memory internalRoles = [
+                "PROJECT MANAGEMENT",
+                "TALENT MANAGEMENT",
+                "FINANCE",
+                "COMMUNITY DEVELOPMENT",
+                "PRODUCT MANAGER"
+            ];
+
+            return internalRoles[_subDeptId];
+        }
         // EXTERNAL RELATIONS
-        else if (_departmentId == 4) {}
+        else if (_departmentId == 4) {
+            string[2] memory externalRoles = ["PARTNERSHIP", "MARKETING"];
+
+            return externalRoles[_subDeptId];
+        }
 
         return "";
     }
