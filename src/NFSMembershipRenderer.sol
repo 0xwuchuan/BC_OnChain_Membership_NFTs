@@ -31,7 +31,7 @@ contract NFSMembershipRenderer {
         return
             svg.rect(
                 string.concat(
-                    // Background dynamic
+                    // TODDO: BACKGROUND DYNAMIC PART OF TOKENID
                     svg.prop("fill", "#141D48"),
                     svg.prop("x", "0"),
                     svg.prop("y", "0"),
@@ -159,130 +159,53 @@ contract NFSMembershipRenderer {
             );
     }
 
-    // @dev Abstract out the barcode generation to prevent stack too deep error
     function generateBarCode() public pure returns (string memory) {
+        // Interesting learning point: when declaring an array, the base type of
+        // the array is the type of the first expression on the list such that all other expressions
+        // can be implicitly converted to it.
+        // https://docs.soliditylang.org/en/v0.8.17/types.html?highlight=array#array-literals
+        uint256[6] memory firstHalf = [uint256(35), 63, 91, 119, 147, 175];
+        uint256[6] memory secondHalf = [uint256(203), 231, 259, 287, 315, 343];
         return
             string.concat(
-                svg.rect(
-                    string.concat(
-                        svg.prop("x", "35"),
-                        svg.prop("y", "287"),
-                        svg.prop("width", utils.uint2str(12)),
-                        svg.prop("height", utils.uint2str(30)),
-                        svg.prop("fill", "#FFF")
-                    ),
-                    utils.NULL
+                generateBarcodeHalf(firstHalf),
+                generateBarcodeHalf(secondHalf)
+            );
+    }
+
+    // @dev Too many function arguments will result in a Compiler Error: Stack too deep
+    // Hence, this function serves to split generateBarcode to reduce number of function arguments
+    function generateBarcodeHalf(uint256[6] memory xCoordinates)
+        public
+        pure
+        returns (string memory)
+    {
+        return
+            string.concat(
+                generateBarcodeRect(xCoordinates[0], 287),
+                generateBarcodeRect(xCoordinates[1], 287),
+                generateBarcodeRect(xCoordinates[2], 287),
+                generateBarcodeRect(xCoordinates[3], 287),
+                generateBarcodeRect(xCoordinates[4], 287),
+                generateBarcodeRect(xCoordinates[5], 287)
+            );
+    }
+
+    function generateBarcodeRect(uint256 x, uint256 y)
+        public
+        pure
+        returns (string memory)
+    {
+        return
+            svg.rect(
+                string.concat(
+                    svg.prop("x", utils.uint2str(x)),
+                    svg.prop("y", utils.uint2str(y)),
+                    svg.prop("width", utils.uint2str(12)),
+                    svg.prop("height", utils.uint2str(30)),
+                    svg.prop("fill", "#FFF")
                 ),
-                svg.rect(
-                    string.concat(
-                        svg.prop("x", "63"),
-                        svg.prop("y", "287"),
-                        svg.prop("width", utils.uint2str(12)),
-                        svg.prop("height", utils.uint2str(30)),
-                        svg.prop("fill", "#FFF")
-                    ),
-                    utils.NULL
-                ),
-                svg.rect(
-                    string.concat(
-                        svg.prop("x", "91"),
-                        svg.prop("y", "287"),
-                        svg.prop("width", utils.uint2str(12)),
-                        svg.prop("height", utils.uint2str(30)),
-                        svg.prop("fill", "#FFF")
-                    ),
-                    utils.NULL
-                ),
-                svg.rect(
-                    string.concat(
-                        svg.prop("x", "119"),
-                        svg.prop("y", "287"),
-                        svg.prop("width", utils.uint2str(12)),
-                        svg.prop("height", utils.uint2str(30)),
-                        svg.prop("fill", "#FFF")
-                    ),
-                    utils.NULL
-                ),
-                svg.rect(
-                    string.concat(
-                        svg.prop("x", "147"),
-                        svg.prop("y", "287"),
-                        svg.prop("width", utils.uint2str(12)),
-                        svg.prop("height", utils.uint2str(30)),
-                        svg.prop("fill", "#FFF")
-                    ),
-                    utils.NULL
-                ),
-                svg.rect(
-                    string.concat(
-                        svg.prop("x", "175"),
-                        svg.prop("y", "287"),
-                        svg.prop("width", utils.uint2str(12)),
-                        svg.prop("height", utils.uint2str(30)),
-                        svg.prop("fill", "#FFF")
-                    ),
-                    utils.NULL
-                ),
-                svg.rect(
-                    string.concat(
-                        svg.prop("x", "203"),
-                        svg.prop("y", "287"),
-                        svg.prop("width", utils.uint2str(12)),
-                        svg.prop("height", utils.uint2str(30)),
-                        svg.prop("fill", "#FFF")
-                    ),
-                    utils.NULL
-                ),
-                svg.rect(
-                    string.concat(
-                        svg.prop("x", "231"),
-                        svg.prop("y", "287"),
-                        svg.prop("width", utils.uint2str(12)),
-                        svg.prop("height", utils.uint2str(30)),
-                        svg.prop("fill", "#FFF")
-                    ),
-                    utils.NULL
-                ),
-                svg.rect(
-                    string.concat(
-                        svg.prop("x", "259"),
-                        svg.prop("y", "287"),
-                        svg.prop("width", utils.uint2str(12)),
-                        svg.prop("height", utils.uint2str(30)),
-                        svg.prop("fill", "#FFF")
-                    ),
-                    utils.NULL
-                ),
-                svg.rect(
-                    string.concat(
-                        svg.prop("x", "287"),
-                        svg.prop("y", "287"),
-                        svg.prop("width", utils.uint2str(12)),
-                        svg.prop("height", utils.uint2str(30)),
-                        svg.prop("fill", "#FFF")
-                    ),
-                    utils.NULL
-                ),
-                svg.rect(
-                    string.concat(
-                        svg.prop("x", "315"),
-                        svg.prop("y", "287"),
-                        svg.prop("width", utils.uint2str(12)),
-                        svg.prop("height", utils.uint2str(30)),
-                        svg.prop("fill", "#FFF")
-                    ),
-                    utils.NULL
-                ),
-                svg.rect(
-                    string.concat(
-                        svg.prop("x", "343"),
-                        svg.prop("y", "287"),
-                        svg.prop("width", utils.uint2str(12)),
-                        svg.prop("height", utils.uint2str(30)),
-                        svg.prop("fill", "#FFF")
-                    ),
-                    utils.NULL
-                )
+                utils.NULL
             );
     }
 
