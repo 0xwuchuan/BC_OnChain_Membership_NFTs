@@ -4,6 +4,7 @@ pragma solidity ^0.8.13;
 import "./SVG.sol";
 import "./Utils.sol";
 import "./LibString.sol";
+import "./NFSMembershipTraits.sol";
 
 // ON DEPLOY: Change to import from "solady/utils/LibString.sol";
 // import "solady/utils/LibString.sol";
