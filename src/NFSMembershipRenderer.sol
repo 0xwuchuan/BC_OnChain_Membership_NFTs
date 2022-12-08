@@ -4,6 +4,7 @@ pragma solidity ^0.8.13;
 import "./SVG.sol";
 import "./Utils.sol";
 import "./LibString.sol";
+import "./NFSMembershipTraits.sol";
 
 // ON DEPLOY: Change to import from "solady/utils/LibString.sol";
 // import "solady/utils/LibString.sol";
@@ -11,7 +12,7 @@ import "./LibString.sol";
 contract NFSMembershipRenderer {
     function render(
         uint256 tokenId,
-        uint256 blockNumber,
+        uint256 blockMinted,
         string memory department,
         string memory role,
         address owner
@@ -21,7 +22,7 @@ contract NFSMembershipRenderer {
                 '<svg xmlns="http://www.w3.org/2000/svg" width="480" height="336" fill="none">',
                 generateBackground(),
                 generateHeader(),
-                generateBody(blockNumber, department, role),
+                generateBody(blockMinted, department, role),
                 generateFooter(tokenId, owner),
                 "</svg>"
             );
@@ -84,7 +85,7 @@ contract NFSMembershipRenderer {
     }
 
     function generateBody(
-        uint256 blockNumber,
+        uint256 blockMinted,
         string memory department,
         string memory role
     ) public pure returns (string memory) {
@@ -100,7 +101,7 @@ contract NFSMembershipRenderer {
                     ),
                     string.concat(
                         "BLOCK FABRICATED: ",
-                        utils.uint2str(blockNumber)
+                        utils.uint2str(blockMinted)
                     )
                 ),
                 svg.text(
@@ -212,7 +213,7 @@ contract NFSMembershipRenderer {
     function example() external pure returns (string memory) {
         return
             render(
-                10001,
+                1000001,
                 16117574,
                 "BLOCKCHAIN",
                 "DEVELOPER",
