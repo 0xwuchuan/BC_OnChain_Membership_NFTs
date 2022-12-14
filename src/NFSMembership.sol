@@ -30,7 +30,14 @@ contract NFSMembership is ERC721, Ownable {
         if (ownerOf(id) == address(0)) {
             revert NonExistentToken();
         }
-
+        //link to renderer
         return string(abi.encode(id));
     }
+
+    function transferFrom(address from, address to, uint256 tokenId) public virtual override {
+        require (from == address(0), "Err: token transfer is blocked");
+        super.transferFrom(from, to, tokenId);
+    }
+
+    
 }
