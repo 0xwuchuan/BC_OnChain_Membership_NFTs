@@ -28,3 +28,59 @@ a {
 		background: black;
 	}
 }
+
+.icon {
+	position: relative;
+	overflow: hidden;
+	
+	color: #fff;
+	font-family: sans-serif;
+  }
+  
+  /**
+   * The "shine" element
+   */
+  
+  .icon:after {
+	content: "";
+	position: absolute;
+	top: -110%;
+	left: -210%;
+	width: 500%;
+	height: 500%;
+	opacity: 0;
+	transform: rotate(30deg);
+	
+	background: rgb(255, 254, 254);
+	background: linear-gradient(
+	  to right, 
+	  rgba(255, 255, 255, 0) 0%,
+	  rgba(255, 255, 255, 0.05) 60%,
+	  rgba(255, 255, 255, 0.224) 84%,
+	  rgba(255, 255, 255, 0.5) 92%,
+	  rgba(255, 255, 255, 0.0) 100%
+	);
+  }
+  
+  /* Hover state - trigger effect */
+  
+  .icon:after {
+	opacity: 1;
+	top: -30%;
+	left: -30%;
+	rotate: 30deg;
+	animation-duration: 5s;
+	animation-name: slide;
+	animation-iteration-count: infinite;
+  }
+  
+  /* Active state */
+  
+  .icon:active:after {
+	opacity: 0;
+  }
+
+  @keyframes slide {
+	0% {transform:translateX(-100%);}
+	100% {transform:translateX(100%);}
+  }
