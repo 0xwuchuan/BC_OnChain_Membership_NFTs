@@ -1,5 +1,6 @@
 import type { NextPageWithLayout } from "./_app";
 import type { ReactElement } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import Layout from "../components/layout";
 
@@ -31,9 +32,11 @@ const Home: NextPageWithLayout = () => {
 					</ul>
 				</div>
 				{/* TODO: Implementing Mint function with Wagmi.sh */}
-				<button className="bg-secondary rounded-[10px] font-bold w-full 2xl:w-2/3 mt-6 py-4 transition duration-200 hover:bg-opacity-75">
-					Mint
-				</button>
+				<Link href="/mint">
+					<button className="bg-secondary rounded-[10px] font-bold w-full 2xl:w-2/3 mt-6 py-4 transition duration-200 hover:bg-opacity-75">
+						Mint
+					</button>
+				</Link>
 			</section>
 			<section className="flex flex-col mt-28">
 				<div className="flex justify-center">
