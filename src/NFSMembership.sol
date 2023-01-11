@@ -36,9 +36,12 @@ contract NFSMembership is ERC721, Ownable, EIP712WhiteListing {
     } 
 
     function transferFrom(address from, address to, uint256 tokenId) public virtual override {
-        require (from == address(0), "Err: token transfer is blocked");
+        
+        if(from != address(0)){
+            revert('cannot transfer ownership');
+        }
         super.transferFrom(from, to, tokenId);
-    }
+    } 
 
     
 }
