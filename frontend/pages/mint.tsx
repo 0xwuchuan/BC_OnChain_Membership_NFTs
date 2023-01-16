@@ -71,10 +71,10 @@ const Mint: NextPageWithLayout = () => {
   })
 
 	return (
-        <div className="flex md:flex-row flex-col py-[5%]">
-            <div className="md:h-[70vh] h-auto md:w-[50vw] w-auto flex flex-col justify-center md:space-y-10 space-y-2 pt-[10%] md:pt-[8%] px-[10%] align-middle">
+        <div className="flex md:flex-row flex-col py-[5%] bg-primary">
+            <div className="md:h-[70vh] h-auto md:w-[50vw] w-auto flex flex-col justify-center md:space-y-10 space-y-2 md:pt-[8%] px-[10%] align-middle text-white">
                 <input onChange={(event) => setName(event.target.value)} placeholder="Name" className="w-full h-10 cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md sm:text-sm text-black" />
-                <div className="w-auto z-10">
+                <div className="w-auto z-10 text-white">
                     <Listbox value={selectedDepartment} onChange={e => { setSelectedDepartment(e); setSelectedRole(e.subdep[0])}}>
                         <div className="relative mt-1">
                           <h1>Department: </h1>

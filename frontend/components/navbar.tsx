@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Navbar() {
 	return (
-		<header className="fixed top-0 w-full lg:px-20 px-6 lg:pt-8 pt-5">
+		<header className="top-0 w-full lg:px-20 px-6 lg:pt-8 pt-5 bg-primary">
 			<div className="flex items-center justify-between">
 				<div>
 					<Link href="/">
@@ -18,7 +18,7 @@ export default function Navbar() {
 					</Link>
 				</div>
 				<nav>
-					<ul className="flex space-x-4">
+					<ul className="flex space-x-4 text-white">
 						{/* TODO: Change Font */}
 						<li>
 							<Link

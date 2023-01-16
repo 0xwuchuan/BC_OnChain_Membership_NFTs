@@ -6,7 +6,7 @@ import Layout from "../components/layout";
 
 const Home: NextPageWithLayout = () => {
 	return (
-		<div className="min-h-screen grid grid-cols-2 pt-32 lg:px-20 px-6">
+		<div className="min-h-screen grid grid-cols-2 lg:px-20 px-6 bg-primary text-white">
 			<section className="mx-2 mt-20">
 				<h1 className="text-5xl font-bold mb-12">
 					Own your membership, <br />
@@ -32,7 +32,7 @@ const Home: NextPageWithLayout = () => {
 					</ul>
 				</div>
 				{/* TODO: Implementing Mint function with Wagmi.sh */}
-				<Link href="/mint">
+				<Link href="/mint" className="pt-[10%]">
 					<button className="bg-secondary rounded-[10px] font-bold w-full 2xl:w-2/3 mt-6 py-4 transition duration-200 hover:bg-opacity-75">
 						Mint
 					</button>
