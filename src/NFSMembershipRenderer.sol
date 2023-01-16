@@ -5,11 +5,13 @@ import "./SVG.sol";
 import "./Utils.sol";
 import "./LibString.sol";
 import "./NFSMembershipTraits.sol";
+import {Base64} from "solady/utils/Base64.sol";
 
 // ON DEPLOY: Change to import from "solady/utils/LibString.sol";
 // import "solady/utils/LibString.sol";
 
 contract NFSMembershipRenderer {
+
     function render(
         uint256 tokenId,
         uint256 blockMinted,
@@ -18,17 +20,19 @@ contract NFSMembershipRenderer {
         address owner
     ) public pure returns (string memory) {
         return
-            string.concat(
-                '<svg xmlns="http://www.w3.org/2000/svg" width="480" height="336" fill="none">',
-                generateBackground(),
-                generateHeader(),
-                generateBody(blockMinted, department, role),
-                generateFooter(tokenId, owner),
-                "</svg>"
-            );
+            Base64.encode(
+                bytes(
+                    string.concat(
+                        '<svg xmlns="http://www.w3.org/2000/svg" width="480" height="336" fill="none">',
+                        generateBackground(),
+                        generateHeader(),
+                        generateBody(blockMinted, department, role),
+                        generateFooter(tokenId, owner),
+                        "</svg>"
+                        )));
     }
 
-    function generateBackground() public pure returns (string memory) {
+    function generateBackground() private pure returns (string memory) {
         return
             svg.rect(
                 string.concat(
@@ -47,7 +51,7 @@ contract NFSMembershipRenderer {
     }
 
     // @dev Abstract out the header generation to prevent stack too deep error
-    function generateHeader() public pure returns (string memory) {
+    function generateHeader() private pure returns (string memory) {
         return
             string.concat(
                 svg.text(
@@ -88,7 +92,7 @@ contract NFSMembershipRenderer {
         uint256 blockMinted,
         string memory department,
         string memory role
-    ) public pure returns (string memory) {
+    ) private pure returns (string memory) {
         return
             string.concat(
                 svg.text(
@@ -130,7 +134,7 @@ contract NFSMembershipRenderer {
     }
 
     function generateFooter(uint256 tokenId, address owner)
-        public
+        private
         pure
         returns (string memory)
     {
@@ -160,7 +164,7 @@ contract NFSMembershipRenderer {
             );
     }
 
-    function generateBarCode() public pure returns (string memory) {
+    function generateBarCode() private pure returns (string memory) {
         // Interesting learning point: when declaring an array, the base type of
         // the array is the type of the first expression on the list such that all other expressions
         // can be implicitly converted to it.
@@ -177,7 +181,7 @@ contract NFSMembershipRenderer {
     // @dev Too many function arguments will result in a Compiler Error: Stack too deep
     // Hence, this function serves to split generateBarcode to reduce number of function arguments
     function generateBarcodeHalf(uint256[6] memory xCoordinates)
-        public
+        private
         pure
         returns (string memory)
     {
@@ -193,7 +197,7 @@ contract NFSMembershipRenderer {
     }
 
     function generateBarcodeRect(uint256 x, uint256 y)
-        public
+        private
         pure
         returns (string memory)
     {
@@ -210,14 +214,14 @@ contract NFSMembershipRenderer {
             );
     }
 
-    function example() external pure returns (string memory) {
-        return
-            render(
-                1000001,
-                16117574,
-                "BLOCKCHAIN",
-                "DEVELOPER",
-                0x777dcCD91f7C62717DBa44db3504bDf47C75E2F1
-            );
-    }
+    // function example() external pure returns (string memory) {
+    //     return
+    //         render(
+    //             1000001,
+    //             16117574,
+    //             "BLOCKCHAIN",
+    //             "DEVELOPER",
+    //             0x777dcCD91f7C62717DBa44db3504bDf47C75E2F1
+    //         );
+    // }
 }
