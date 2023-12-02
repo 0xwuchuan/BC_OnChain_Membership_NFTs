@@ -3,7 +3,7 @@ import { ethers } from "hardhat";
 
 describe("Token", function () {
 	it("Should return name Token", async function () {
-		const Token = await ethers.getContractFactory("NFSMembership");
+		const Token = await ethers.getContractFactory("NUSFintech");
 		const token = await Token.deploy();
 		await token.deployed();
 	});
@@ -11,7 +11,7 @@ describe("Token", function () {
 
 describe("Soulbound", () => {
 	it("Should block transfer of ownership", async function () {
-		const Soulbound = await ethers.getContractFactory("NFSMembership");
+		const Soulbound = await ethers.getContractFactory("NUSFintech");
 		const [addr1, addr2] = await ethers.getSigners();
 		const soulbound = await Soulbound.deploy();
 		await soulbound.deployed();

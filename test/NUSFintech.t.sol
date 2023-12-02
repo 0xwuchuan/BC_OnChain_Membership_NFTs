@@ -3,12 +3,12 @@ pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
 
-import "../src/NFSMembership.sol";
+import "../src/NUSFintech.sol";
 
-contract NFSMembershipTest is Test {
-    NFSMembership t;
+contract NUSFintech is Test {
+    NUSFintech t;
 
     function setUp() public {
-        t = new NFSMembership();
+        t = new NUSFintech();
     }
 }

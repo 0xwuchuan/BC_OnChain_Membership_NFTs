@@ -4,21 +4,10 @@ pragma solidity ^0.8.13;
 import {ERC721} from "solmate/tokens/ERC721.sol";
 import {Ownable} from "solady/auth/Ownable.sol";
 //import {Base64} from "solady/utils/Base64.sol";
-import "./NFSMembershipRenderer.sol";
-import "./EIP712Whitelisting.sol";
 
 error NonExistentToken();
 
-contract NFSMembership is ERC721, Ownable, EIP712WhiteListing {
-    // Token Id => Token dna
-    // Encode each of traits into part of the 7 digit token DNA
-    // 0            0           0       0000
-    // Background | Department | Role | TokenId
-    // 9 possible backgrounds
-    // 10 possible departments
-    // 10 possible roles for each department
-    // Total Supply will be 10000 which is more than enough in the short term for the project
-
+contract NUSFintech is ERC721, Ownable, EIP712WhiteListing {
     // Token Id -> block minted
     mapping(uint256 => uint256) public blockMinted;
 
