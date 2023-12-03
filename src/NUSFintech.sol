@@ -7,13 +7,13 @@ import {Ownable} from "solady/auth/Ownable.sol";
 
 error NonExistentToken();
 
-contract NUSFintech is ERC721, Ownable, EIP712WhiteListing {
+contract NUSFintech is ERC721, Ownable {
     // Token Id -> block minted
     mapping(uint256 => uint256) public blockMinted;
 
-    constructor() ERC721("NFS Membership", "NFSM") EIP712WhiteListing() {}
+    constructor() ERC721("NFS Membership", "NFSM") {}
 
-    function mint(address to, uint256 tokenId, bytes calldata signature) public requiresWhitelist(signature) onlyOwner {
+    function mint(address to, uint256 tokenId, bytes calldata signature) public onlyOwner {
         _mint(to, tokenId);
     }
 
