@@ -5,7 +5,7 @@ import "forge-std/Test.sol";
 
 import "../src/NUSFintech.sol";
 
-contract NUSFintech is Test {
+contract NUSFintechTest is Test {
     NUSFintech t;
 
     function setUp() public {

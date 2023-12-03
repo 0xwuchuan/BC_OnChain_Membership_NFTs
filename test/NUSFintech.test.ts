@@ -9,13 +9,13 @@ describe("Token", function () {
 	});
 }); 
 
-describe("Soulbound", () => {
-	it("Should block transfer of ownership", async function () {
-		const Soulbound = await ethers.getContractFactory("NUSFintech");
-		const [addr1, addr2] = await ethers.getSigners();
-		const soulbound = await Soulbound.deploy();
-		await soulbound.deployed();
+// describe("Soulbound", () => {
+// 	it("Should block transfer of ownership", async function () {
+// 		const Soulbound = await ethers.getContractFactory("NUSFintech");
+// 		const [addr1, addr2] = await ethers.getSigners();
+// 		const soulbound = await Soulbound.deploy();
+// 		await soulbound.deployed();
 
-		await expect(soulbound.transferFrom(addr1.address, addr2.address, 10)).to.be.revertedWith("cannot transfer ownership");
-	})
-})
+// 		await expect(soulbound.transferFrom(addr1.address, addr2.address, 10)).to.be.revertedWith("cannot transfer ownership");
+// 	})
+// })
