@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import {svg} from "hot-chain-svg/contracts/SVG.sol";
-import {LibPRNG} from './utils/LibPRNG.sol';
-import {LibString} from './utils/LibString.sol';
+import {svg} from "hot-chain-svg/SVG.sol";
+import {LibPRNG} from 'solady/src/utils/LibPRNG.sol';
+import {LibString} from 'solady/src/utils/LibString.sol';
 
 library NUSFintechRenderer {
     using LibPRNG for LibPRNG.PRNG;
@@ -12,9 +12,9 @@ library NUSFintechRenderer {
     /// @notice traits that make up the art (Fintechie for now no idea what to name it)
     struct Fintechie {
         uint8 hat;
-        uint8 head;
+        uint8 headleft;
+        uint8 headright;
         uint8 eyes;
-        uint8 mouth;
         uint8 hand;
         uint8 color;
         bool inverted;
