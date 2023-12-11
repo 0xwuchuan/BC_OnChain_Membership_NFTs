@@ -18,10 +18,10 @@ library NUSFintechRenderer {
         bool inverted;
     }
     
-    /// @notice hat characters for different traits (External Affairs, Internal Affairs, Presidential Cell, 
-    /// Blockchain, Machine Learning, Software Development, Quant respectively
+    /// @notice hat characters for different traits (Public, External Affairs, Internal Affairs, Presidential Cell, 
+    /// Blockchain, Machine Learning, Software Development, Quant, Alumni respectively)
     /// @dev index of 0 corresponds to no hat trait (Friend of NFS)
-    bytes32 constant HATS = " +-*#@=$"; // 8 hats
+    bytes32 constant HATS = " +-*#@=$^"; // 9 hats
     bytes32 constant HEAD_LEFT = "|[({"; // 4 heads
     bytes32 constant HEAD_RIGHT = "|])}"; // 4 heads
     bytes32 constant EYES = "+-*#@=$^-0oxz"; // 13 eyes
@@ -61,12 +61,12 @@ library NUSFintechRenderer {
     // @notice renders a FintechOnChain SVG 
     // @param _seed seed to select traits for Fintechie
     // @param department department of Fintechie
-    // @dev department index is used to determine hat (Public, EA, IA, PC, BC, ML, SD, Quant respectively)
+    // @dev department index is used to determine hat (0-indexed)
     // @returns SVG string representing Fintechie
     function render(uint256 _seed, uint256 _department) internal pure returns (string memory) {
         Fintechie memory fintechie;
 
-        // Select characters for fintechie's different traits using prng
+        // Select characters for fintechie's different traits using bit manipulation
         fintechie.hat = uint8(_department); 
         // &(AND) with 3 (11 in binary - 2 bits) to choose from 4 heads
         fintechie.headleft = uint8(_seed & 3); 

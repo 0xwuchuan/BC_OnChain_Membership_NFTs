@@ -44,8 +44,8 @@ contract RendererAndMetadataTest is Test {
     /// @dev expected output of generateAttributes is determine from hot-chain-svg repo
     /// (Not sure how to test this dynamically)
     function testGenerateAttributes(uint256 _seed, uint256 _department) public {
-        // only 8 hats available
-        vm.assume(_department < 8);
+        // only 9 hats available
+        vm.assume(_department < 9);
 
         string memory attributes = NUSFintechMetadata.generateAttributes(_seed, _department);
         string memory expected = generateExpectedAttributes(_seed, _department);

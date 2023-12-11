@@ -11,7 +11,7 @@ library NUSFintechMetadata {
 
     bytes constant HATS = 
         "none_external affairs_internal affairs_presidential cell_"
-        "blockchain_machine learning_software development_quant";
+        "blockchain_machine learning_software development_quant_alumni";
     bytes constant COLORS = "blue_red_green_yellow_orange_purple";
 
     function generateAttributes(uint256 _seed, uint256 _department) internal pure returns(string memory) {
