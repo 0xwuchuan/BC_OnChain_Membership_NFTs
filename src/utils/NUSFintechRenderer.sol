@@ -2,11 +2,10 @@
 pragma solidity ^0.8.13;
 
 import {svg} from "hot-chain-svg/SVG.sol";
-import {LibPRNG} from 'solady/src/utils/LibPRNG.sol';
 import {LibString} from 'solady/src/utils/LibString.sol';
 
 library NUSFintechRenderer {
-    using LibPRNG for LibPRNG.PRNG;
+
     using LibString for uint256;
 
     /// @notice traits that make up the art (Fintechie for now no idea what to name it)
@@ -21,9 +20,9 @@ library NUSFintechRenderer {
     }
     
     /// @notice hat characters for different traits (External Affairs, Internal Affairs, Presidential Cell, 
-    /// Blockchain, Machine Learning, Software Development, Quant respectively
-    /// @dev index of 0 corresponds to no hat trait (Friend of NFS)
-    bytes32 constant HATS = " +-*#@=$"; // 8 hats
+    /// Blockchain, Machine Learning, Software Development, Quant, Alumni respectively)
+    /// @dev index of 0 corresponds to no hat trait (Friend of NFS/Public)
+    bytes32 constant HATS = " +-*#@=$^"; // 9 hats
     bytes32 constant HEAD_LEFT = "|[({"; // 4 heads
     bytes32 constant HEAD_RIGHT = "|])}"; // 4 heads
     bytes32 constant EYES = "+-*#@=$^-0oxz"; // 13 eyes
@@ -63,32 +62,30 @@ library NUSFintechRenderer {
     // @notice renders a FintechOnChain SVG 
     // @param _seed seed to select traits for Fintechie
     // @param department department of Fintechie
-    // @dev department index is used to determine hat (Public, EA, IA, PC, BC, ML, SD, Quant respectively)
+    // @dev department index is used to determine hat (0-indexed)
     // @returns SVG string representing Fintechie
     function render(uint256 _seed, uint256 _department) internal pure returns (string memory) {
-        LibPRNG.PRNG memory prng = LibPRNG.PRNG(_seed);
-
         Fintechie memory fintechie;
 
-        // Select characters for fintechie's different traits using prng
+        // Select characters for fintechie's different traits using bit manipulation
         fintechie.hat = uint8(_department); 
         // &(AND) with 3 (11 in binary - 2 bits) to choose from 4 heads
-        fintechie.headleft = uint8(prng.state & 3); 
-        prng.state >>= 2;
+        fintechie.headleft = uint8(_seed & 3); 
+        _seed >>= 2;
         // &(AND) with 3 (11 in binary - 2 bits) to choose from 4 heads
-        fintechie.headright = uint8(prng.state & 3); 
-        prng.state >>= 2;
+        fintechie.headright = uint8(_seed & 3); 
+        _seed >>= 2;
         // %(MOD) with 13 (4 bits) to choose from 13 eyes (& cant work because 13 is not a power of 2)
-        fintechie.eyes = uint8(prng.state % 13); 
-        prng.state >>= 4;
+        fintechie.eyes = uint8(_seed % 13); 
+        _seed >>= 4;
         // &(AND) with 7 (111 in binary - 3 bits) to choose from 8 hands
-        fintechie.hand = uint8(prng.state & 7); 
-        prng.state >>= 3;
+        fintechie.hand = uint8(_seed & 7); 
+        _seed >>= 3;
         // &(AND) with 3 (11 in binary - 2bits) for 25% chance of being inverted
-        fintechie.inverted = prng.state & 3 == 0; 
-        prng.state >>= 2;
+        fintechie.inverted = _seed & 3 == 0; 
+        _seed >>= 2;
         // %(MOD) with 6 (3 bits) to choose from 6 colors (& cant work because 6 is not a power of 2)
-        fintechie.color = uint8(prng.state % 6); 
+        fintechie.color = uint8(_seed % 6); 
 
         // Calculate hexadecimal color based on color index (fintechie.color)
         // >> (right shift) number of bits to get to the correct position of COLORS
