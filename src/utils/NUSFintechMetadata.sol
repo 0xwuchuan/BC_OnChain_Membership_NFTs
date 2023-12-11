@@ -9,9 +9,13 @@ library NUSFintechMetadata {
 
     uint256 constant BITS_USED = 16;
 
+    bytes constant HATS = 
+        "none_external affairs_internal affairs_presidential cell_"
+        "blockchain_machine learning_software development_quant";
     bytes constant COLORS = "blue_red_green_yellow_orange_purple";
 
-    function generateAttributes(uint256 _seed) internal pure returns(string memory) {
+    function generateAttributes(uint256 _seed, uint256 _department) internal pure returns(string memory) {
+        string[] memory hats = string(HATS).split("_");
         string[] memory colors = string(COLORS).split("_");
 
         // The bits used to determine the background is [11, 13] (0-indexed)
@@ -24,9 +28,12 @@ library NUSFintechMetadata {
 
         return 
             string.concat(
-                '[{"trait_type": "color", "value":"',
+                '[{"trait_type": "hat", "value":"',
+                hats[_department],
+                '"},',
+                '{"trait_type": "color", "value":"',
                 colors[color],
-                '"}',
+                '"},',
                 '{"trait_type": "background", "value":"',
                 inverted ? "inverted" : "normal",
                 '"}',
