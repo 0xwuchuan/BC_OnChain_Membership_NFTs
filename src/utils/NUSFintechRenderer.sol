@@ -5,6 +5,7 @@ import {svg} from "hot-chain-svg/SVG.sol";
 import {LibString} from 'solady/src/utils/LibString.sol';
 
 library NUSFintechRenderer {
+
     using LibString for uint256;
 
     /// @notice traits that make up the art (Fintechie for now no idea what to name it)
@@ -18,9 +19,9 @@ library NUSFintechRenderer {
         bool inverted;
     }
     
-    /// @notice hat characters for different traits (Public, External Affairs, Internal Affairs, Presidential Cell, 
+    /// @notice hat characters for different traits (External Affairs, Internal Affairs, Presidential Cell, 
     /// Blockchain, Machine Learning, Software Development, Quant, Alumni respectively)
-    /// @dev index of 0 corresponds to no hat trait (Friend of NFS)
+    /// @dev index of 0 corresponds to no hat trait (Friend of NFS/Public)
     bytes32 constant HATS = " +-*#@=$^"; // 9 hats
     bytes32 constant HEAD_LEFT = "|[({"; // 4 heads
     bytes32 constant HEAD_RIGHT = "|])}"; // 4 heads
