@@ -1,5 +1,8 @@
+@openzeppelin/=lib/ERC5192/lib/openzeppelin-contracts/
+ERC5192/=lib/ERC5192/
 ds-test/=lib/forge-std/lib/ds-test/src/
 forge-std/=lib/forge-std/src/
 hot-chain-svg/=lib/hot-chain-svg/contracts/
+openzeppelin-contracts/=lib/ERC5192/lib/openzeppelin-contracts/
 solady/=lib/solady/
 solmate/=lib/solmate/src/
