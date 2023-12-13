@@ -5,6 +5,9 @@ import {ERC721} from "solmate/tokens/ERC721.sol";
 import {IERC5192} from "ERC5192/src/IERC5192.sol";
 import {ECDSA} from "solady/src/utils/ECDSA.sol";
 import {Owned} from "solmate/auth/Owned.sol";
+import {Base64} from "solady/src/utils/Base64.sol";
+import {NUSFintechRenderer} from "./utils/NUSFintechRenderer.sol";
+import {NUSFintechMetadata} from "./utils/NUSFintechMetadata.sol";
 
 error TokenLocked();
 error TokenDoesNotExist();
@@ -42,9 +45,39 @@ contract NUSFintech is ERC721, IERC5192, Owned {
     }
 
     function tokenURI(
-        uint256 _tokenid
+        uint256 _tokenId
     ) public view override returns (string memory) {
-        return "";
+        if (_ownerOf[_tokenId] == address(0)) revert TokenDoesNotExist();
+
+        uint256 seed = uint256(keccak256(abi.encodePacked(_tokenId)));
+        uint256 department = _departments[_tokenId];
+
+        string memory attributes = NUSFintechMetadata.generateAttributes(
+            seed,
+            department
+        );
+
+        return
+            string.concat(
+                "data:application/json;base64,",
+                Base64.encode(
+                    abi.encodePacked(
+                        '{"name":"',
+                        'Fintechie"', // TO-DO: Add name
+                        '", "description":"',
+                        "NUS Fintechie NFT", // TO-DO: Add description
+                        '", "image_data":"data:image/svg+xml;base64,',
+                        Base64.encode(
+                            abi.encodePacked(
+                                NUSFintechRenderer.render(seed, department)
+                            )
+                        ),
+                        '", "attributes":',
+                        attributes,
+                        "}"
+                    )
+                )
+            );
     }
 
     // =========================================================================
