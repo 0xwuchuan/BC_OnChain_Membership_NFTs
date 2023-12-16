@@ -1,21 +1,14 @@
-import { expect } from "chai";
+import { expect, assert } from "chai";
 import { ethers } from "hardhat";
 
-describe("Token", function () {
-	it("Should return name Token", async function () {
-		const Token = await ethers.getContractFactory("NUSFintech");
-		const token = await Token.deploy();
-		await token.deployed();
-	});
-}); 
+describe("NUSFintech", function () {
+  let nusFintech: any, owner: any;
 
-// describe("Soulbound", () => {
-// 	it("Should block transfer of ownership", async function () {
-// 		const Soulbound = await ethers.getContractFactory("NUSFintech");
-// 		const [addr1, addr2] = await ethers.getSigners();
-// 		const soulbound = await Soulbound.deploy();
-// 		await soulbound.deployed();
+  before("Deploy NUSFintech.sol", async function () {
+    const NUSFintech = await ethers.getContractFactory("NUSFintech");
+    nusFintech = await NUSFintech.deploy();
+    await nusFintech.deployed();
 
-// 		await expect(soulbound.transferFrom(addr1.address, addr2.address, 10)).to.be.revertedWith("cannot transfer ownership");
-// 	})
-// })
+    [owner] = await ethers.provider.listAccounts();
+  });
+});
