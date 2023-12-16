@@ -15,3 +15,4 @@ artifacts/
 typechain-types/
 
 .vscode
+.env
