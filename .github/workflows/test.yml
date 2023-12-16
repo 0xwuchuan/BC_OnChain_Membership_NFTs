@@ -48,6 +48,11 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
       - name: Setup Node 16
         uses: actions/setup-node@v3
         with:
