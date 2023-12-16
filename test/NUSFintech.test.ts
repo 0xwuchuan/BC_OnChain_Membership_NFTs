@@ -1,14 +1,18 @@
 import { expect, assert } from "chai";
 import { ethers } from "hardhat";
+import { NUSFintech } from "../typechain-types";
 
 describe("NUSFintech", function () {
-  let nusFintech: any, owner: any;
+  let nusFintech: NUSFintech, ownerAddress: string;
 
   before("Deploy NUSFintech.sol", async function () {
-    const NUSFintech = await ethers.getContractFactory("NUSFintech");
-    nusFintech = await NUSFintech.deploy();
-    await nusFintech.deployed();
+    nusFintech = await ethers.deployContract("NUSFintech");
 
-    [owner] = await ethers.provider.listAccounts();
+    let [owner] = await ethers.getSigners();
+    ownerAddress = await owner.getAddress();
+  });
+
+  it("Should assign deployer as owner", async function () {
+    assert.equal(await nusFintech.owner(), ownerAddress);
   });
 });
