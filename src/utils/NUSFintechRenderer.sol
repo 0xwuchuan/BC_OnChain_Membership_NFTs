@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.17;
 
 import {svg} from "hot-chain-svg/SVG.sol";
 import {LibString} from 'solady/src/utils/LibString.sol';
