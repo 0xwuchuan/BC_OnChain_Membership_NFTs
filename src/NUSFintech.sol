@@ -102,23 +102,6 @@ contract NUSFintech is ERC721, IERC5192, Owned {
         super.transferFrom(from, to, id);
     }
 
-    function safeTransferFrom(
-        address from,
-        address to,
-        uint256 id
-    ) public override checkLock {
-        super.safeTransferFrom(from, to, id);
-    }
-
-    function safeTransferFrom(
-        address from,
-        address to,
-        uint256 id,
-        bytes calldata data
-    ) public override checkLock {
-        super.safeTransferFrom(from, to, id, data);
-    }
-
     function approve(address spender, uint256 id) public override checkLock {
         super.approve(spender, id);
     }

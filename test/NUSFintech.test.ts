@@ -10,14 +10,19 @@ describe("NUSFintech", function () {
   let user1: Signer, user2: Signer;
   let user1Address: string, user2Address: string;
 
-  before("Deploy NUSFintech.sol", async function () {
-    nusFintech = await ethers.deployContract("NUSFintech");
+  before(
+    "Deploy NUSFintech.sol and set offchain signing address",
+    async function () {
+      nusFintech = await ethers.deployContract("NUSFintech");
 
-    [owner, user1, user2] = await ethers.getSigners();
-    ownerAddress = await owner.getAddress();
-    user1Address = await user1.getAddress();
-    user2Address = await user2.getAddress();
-  });
+      [owner, user1, user2] = await ethers.getSigners();
+      ownerAddress = await owner.getAddress();
+      user1Address = await user1.getAddress();
+      user2Address = await user2.getAddress();
+
+      await nusFintech.setOffchainSigner(ownerAddress);
+    }
+  );
 
   describe("Deployment", function () {
     it("Should assign correct name and symbol", async function () {
@@ -26,17 +31,12 @@ describe("NUSFintech", function () {
     });
 
     it("Should assign deployer as owner", async function () {
-      console.log(`ownerAddress: ${ownerAddress}`);
       assert.equal(await nusFintech.owner(), ownerAddress);
     });
   });
 
   describe("Mint", function () {
     let department = 0;
-
-    before("Set offchain signing address", async function () {
-      await nusFintech.setOffchainSigner(ownerAddress);
-    });
 
     it("Should revert with invalid signature for mint function", async function () {
       await expect(
@@ -50,6 +50,52 @@ describe("NUSFintech", function () {
       await expect(nusFintech.connect(user1).mint(department, sig))
         .to.emit(nusFintech, "Transfer")
         .withArgs(ethers.ZeroAddress, user1Address, 1);
+    });
+  });
+
+  describe("tokenURI", function () {
+    it("Should revert on non existent tokenId", async function () {
+      await expect(nusFintech.tokenURI(2)).to.be.revertedWithCustomError(
+        nusFintech,
+        "TokenDoesNotExist"
+      );
+    });
+  });
+
+  describe("Soulbound Functionality", function () {
+    // @dev Contract state is presists between describe blocks because
+    // nusFintech(contract) is declared outside of the describe blocks
+    it("Should revert when checking lock status of non existent tokenId", async function () {
+      await expect(nusFintech.locked(2)).to.be.revertedWithCustomError(
+        nusFintech,
+        "TokenDoesNotExist"
+      );
+    });
+
+    it("Should revert on attempted call on approve()", async function () {
+      await expect(
+        nusFintech.connect(user1).approve(user2Address, 1)
+      ).to.be.revertedWithCustomError(nusFintech, "TokenLocked");
+    });
+
+    it("Should revert on attempted setApprovalForAll()", async function () {
+      await expect(
+        nusFintech.connect(user1).setApprovalForAll(user2Address, true)
+      ).to.be.revertedWithCustomError(nusFintech, "TokenLocked");
+    });
+
+    it("Should revert on attempted call on transferFrom()", async function () {
+      await expect(
+        nusFintech.connect(user1).transferFrom(user1Address, user2Address, 1)
+      ).to.be.revertedWithCustomError(nusFintech, "TokenLocked");
+    });
+
+    it("Should support ERC5192 interface", async function () {
+      expect((await nusFintech.supportsInterface("0xb45a3c0e")) == true);
+    });
+
+    it("Should support ERC721 interface", async function () {
+      expect((await nusFintech.supportsInterface("0x5b5e139f")) == true);
     });
   });
 });
