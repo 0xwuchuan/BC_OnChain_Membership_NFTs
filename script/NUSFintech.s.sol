@@ -1,8 +1,8 @@
-// SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.13;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
 
-import "forge-std/Script.sol";
-import "../src/NUSFintech.sol";
+import {Script, console2} from "forge-std/Script.sol";
+import {NUSFintech} from "../src/NUSFintech.sol";
 
 contract MyScript is Script {
     function run() external {

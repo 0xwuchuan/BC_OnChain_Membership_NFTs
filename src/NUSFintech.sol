@@ -23,7 +23,7 @@ contract NUSFintech is ERC721, IERC5192, Owned {
     address private _offchainSigner;
 
     // Next token id to be minted
-    uint256 private _currentIndex;
+    uint256 private _currentIndex = 1;
 
     // Mapping from token id to department id
     // Refer to NUSFintechRenderer for more on department id
@@ -33,51 +33,42 @@ contract NUSFintech is ERC721, IERC5192, Owned {
 
     /// @notice Mints a new NFT with the given department id
     /// @dev Store department id in _departments mapping for use in tokenURI function
-    /// @param department department id of nft to be minted
+    /// @param department department id of nft to be minted (0-8) inclusive
     /// @param _signature signature of mint request
     function mint(uint256 department, bytes calldata _signature) external {
-        if (!_verifySignature(department, _signature))
+        if (!_verifySignature(department, _signature)) {
             revert InvalidSignature();
+        }
 
         _departments[_currentIndex] = department;
         _mint(msg.sender, _currentIndex);
         ++_currentIndex;
     }
 
-    function tokenURI(
-        uint256 _tokenId
-    ) public view override returns (string memory) {
+    function tokenURI(uint256 _tokenId) public view override returns (string memory) {
         if (_ownerOf[_tokenId] == address(0)) revert TokenDoesNotExist();
 
         uint256 seed = uint256(keccak256(abi.encodePacked(_tokenId)));
         uint256 department = _departments[_tokenId];
 
-        string memory attributes = NUSFintechMetadata.generateAttributes(
-            seed,
-            department
-        );
+        string memory attributes = NUSFintechMetadata.generateAttributes(seed, department);
 
-        return
-            string.concat(
-                "data:application/json;base64,",
-                Base64.encode(
-                    abi.encodePacked(
-                        '{"name":"',
-                        'Fintechie"', // TO-DO: Add name
-                        '", "description":"',
-                        "NUS Fintechie NFT", // TO-DO: Add description
-                        '", "image_data":"data:image/svg+xml;base64,',
-                        Base64.encode(
-                            abi.encodePacked(
-                                NUSFintechRenderer.render(seed, department)
-                            )
-                        ),
-                        '", "attributes":',
-                        attributes,
-                        "}"
-                    )
+        return string.concat(
+            "data:application/json;base64,",
+            Base64.encode(
+                abi.encodePacked(
+                    '{"name":"',
+                    "Fintechie", // TO-DO: Add name
+                    '", "description":"',
+                    "NUS Fintechie NFT", // TO-DO: Add description
+                    '", "image_data":"data:image/svg+xml;base64,',
+                    Base64.encode(abi.encodePacked(NUSFintechRenderer.render(seed, department))),
+                    '", "attributes":',
+                    attributes,
+                    "}"
                 )
-            );
+            )
+        );
     }
 
     // =========================================================================
@@ -94,48 +85,20 @@ contract NUSFintech is ERC721, IERC5192, Owned {
         return isLocked;
     }
 
-    function transferFrom(
-        address from,
-        address to,
-        uint256 id
-    ) public override checkLock {
+    function transferFrom(address from, address to, uint256 id) public override checkLock {
         super.transferFrom(from, to, id);
-    }
-
-    function safeTransferFrom(
-        address from,
-        address to,
-        uint256 id
-    ) public override checkLock {
-        super.safeTransferFrom(from, to, id);
-    }
-
-    function safeTransferFrom(
-        address from,
-        address to,
-        uint256 id,
-        bytes calldata data
-    ) public override checkLock {
-        super.safeTransferFrom(from, to, id, data);
     }
 
     function approve(address spender, uint256 id) public override checkLock {
         super.approve(spender, id);
     }
 
-    function setApprovalForAll(
-        address operator,
-        bool approved
-    ) public override checkLock {
+    function setApprovalForAll(address operator, bool approved) public override checkLock {
         super.setApprovalForAll(operator, approved);
     }
 
-    function supportsInterface(
-        bytes4 interfaceId
-    ) public view virtual override returns (bool) {
-        return
-            interfaceId == type(IERC5192).interfaceId ||
-            super.supportsInterface(interfaceId);
+    function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
+        return interfaceId == type(IERC5192).interfaceId || super.supportsInterface(interfaceId);
     }
 
     // =========================================================================
@@ -154,17 +117,10 @@ contract NUSFintech is ERC721, IERC5192, Owned {
     /// @param department department id of nft to be minted
     /// @param _signature signature of mint request
     /// @return true if signature is valid, false otherwise
-    function _verifySignature(
-        uint256 department,
-        bytes memory _signature
-    ) private view returns (bool) {
-        bytes32 messageHash = keccak256(
-            abi.encodePacked(msg.sender, department)
-        );
+    function _verifySignature(uint256 department, bytes memory _signature) private view returns (bool) {
+        bytes32 messageHash = keccak256(abi.encodePacked(msg.sender, department));
 
-        address signer = messageHash.toEthSignedMessageHash().recover(
-            _signature
-        );
+        address signer = messageHash.toEthSignedMessageHash().recover(_signature);
 
         return signer == _offchainSigner;
     }
