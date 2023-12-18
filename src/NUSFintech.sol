@@ -23,7 +23,7 @@ contract NUSFintech is ERC721, IERC5192, Owned {
     address private _offchainSigner;
 
     // Next token id to be minted
-    uint256 private _currentIndex;
+    uint256 private _currentIndex = 1;
 
     // Mapping from token id to department id
     // Refer to NUSFintechRenderer for more on department id
