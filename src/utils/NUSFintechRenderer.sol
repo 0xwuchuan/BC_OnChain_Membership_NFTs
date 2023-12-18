@@ -43,20 +43,10 @@ library NUSFintechRenderer {
 
     /// @notice background string behind fintechie
     /// @dev <a> tags are used to change color of text (declared in style tag later on)
-    string constant BACKGROUNDSTR =
-        "<a>NUS</a>FINTECHSOCIETYNUSFIN\n"
-        "TECHSOCIETYNUSFINTECHSO\n"
-        "CIETYNUSFINTECHSOCIETYN\n"
-        "USFINTECHSOCIETYNUSFINT\n"
-        "ECHSOCIETYNUSFINTECHSOC\n"
-        "IETYNUSFINTECHSOCIETYNU\n"
-        "SFINTECHSOCIETYNUSFINTE\n"
-        "CHSOCIETYNUSFINTECHSOCI\n"
-        "ETYNUSFINTECHSOCIETYNUS\n"
-        "FINTECHSOCIETYNUSFINTEC\n"
-        "HSOCIETYNUSFINTECHSOCIE\n"
-        "TYNUSFINTECHSOCIETYNUSF\n"
-        "INTECHSOCIETYNUSFINTECH\n"
+    string constant BACKGROUNDSTR = "<a>NUS</a>FINTECHSOCIETYNUSFIN\n" "TECHSOCIETYNUSFINTECHSO\n"
+        "CIETYNUSFINTECHSOCIETYN\n" "USFINTECHSOCIETYNUSFINT\n" "ECHSOCIETYNUSFINTECHSOC\n" "IETYNUSFINTECHSOCIETYNU\n"
+        "SFINTECHSOCIETYNUSFINTE\n" "CHSOCIETYNUSFINTECHSOCI\n" "ETYNUSFINTECHSOCIETYNUS\n" "FINTECHSOCIETYNUSFINTEC\n"
+        "HSOCIETYNUSFINTECHSOCIE\n" "TYNUSFINTECHSOCIETYNUSF\n" "INTECHSOCIETYNUSFINTECH\n"
         "SOCIETYNUSFINTEC<a>FINTECH</a>\n";
 
     // @notice renders a FintechOnChain SVG
@@ -64,10 +54,7 @@ library NUSFintechRenderer {
     // @param department department of Fintechie
     // @dev department index is used to determine hat (0-indexed)
     // @returns SVG string representing Fintechie
-    function render(
-        uint256 _seed,
-        uint256 _department
-    ) internal pure returns (string memory) {
+    function render(uint256 _seed, uint256 _department) internal pure returns (string memory) {
         Fintechie memory fintechie;
 
         // Select characters for fintechie's different traits using bit manipulation
@@ -94,11 +81,8 @@ library NUSFintechRenderer {
         // >> (right shift) number of bits to get to the correct position of COLORS
         // fintechie.color << 5 is equivalent to fintechie.color * 32
         // & 0xFFFFFF to get the last 24 bits of COLORS
-        string memory colorStr = string.concat(
-            "#",
-            ((COLORS >> (fintechie.color << 5)) & 0xFFFFFF)
-                .toHexStringNoPrefix()
-        );
+        string memory colorStr =
+            string.concat("#", ((COLORS >> (fintechie.color << 5)) & 0xFFFFFF).toHexStringNoPrefix());
 
         // Concatenate all the traits into a string to form a fintechie
         // eg.     #
@@ -116,82 +100,64 @@ library NUSFintechRenderer {
             string(abi.encodePacked(HANDS[fintechie.hand]))
         );
 
-        return
-            string.concat(
-                // start of svg tag
-                '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">',
-                // style tag that declares font and colors for the pre and a tags
-                svg.el(
-                    "style",
-                    "",
-                    string.concat(
-                        FONTSTR,
-                        "pre{font-family:A;font-size:32px;text-align:center;margin:0;padding:0;letter-spacing:0.945px; }",
-                        "a{color:rgba(0,0,0,0.5);}"
+        return string.concat(
+            // start of svg tag
+            '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">',
+            // style tag that declares font and colors for the pre and a tags
+            svg.el(
+                "style",
+                "",
+                string.concat(
+                    FONTSTR,
+                    "pre{font-family:A;font-size:32px;text-align:center;margin:0;padding:0;letter-spacing:0.945px; }",
+                    "a{color:rgba(0,0,0,0.5);}"
+                )
+            ),
+            // background rectangle that fills the entire svg (with color depending on inverted trait)
+            svg.path(
+                string.concat(
+                    svg.prop("d", "M0 0h600v600H0z"), svg.prop("fill", fintechie.inverted ? colorStr : "#FFF")
+                ),
+                ""
+            ),
+            // foreignobject is used to wrap the pre tags so that they can be used in the svg
+            svg.el(
+                "foreignObject",
+                string.concat(
+                    svg.prop("x", "32"), svg.prop("y", "20"), svg.prop("width", "536"), svg.prop("height", "561")
+                ),
+                string.concat(
+                    svg.el(
+                        "pre",
+                        string.concat(
+                            svg.prop("xmlns", "http://www.w3.org/1999/xhtml"),
+                            svg.prop("style", "color:rgba(0,0,0,0.05)")
+                        ),
+                        BACKGROUNDSTR
                     )
+                )
+            ),
+            // foreignobject is used to wrap the pre tags so that they can be used in the svg
+            svg.el(
+                "foreignObject",
+                string.concat(
+                    svg.prop("x", "32"), svg.prop("y", "187"), svg.prop("width", "536"), svg.prop("height", "200")
                 ),
-                // background rectangle that fills the entire svg (with color depending on inverted trait)
-                svg.path(
-                    string.concat(
-                        svg.prop("d", "M0 0h600v600H0z"),
-                        svg.prop("fill", fintechie.inverted ? colorStr : "#FFF")
-                    ),
-                    ""
-                ),
-                // foreignobject is used to wrap the pre tags so that they can be used in the svg
-                svg.el(
-                    "foreignObject",
-                    string.concat(
-                        svg.prop("x", "32"),
-                        svg.prop("y", "20"),
-                        svg.prop("width", "536"),
-                        svg.prop("height", "561")
-                    ),
-                    string.concat(
-                        svg.el(
-                            "pre",
-                            string.concat(
-                                svg.prop(
-                                    "xmlns",
-                                    "http://www.w3.org/1999/xhtml"
-                                ),
-                                svg.prop("style", "color:rgba(0,0,0,0.05)")
-                            ),
-                            BACKGROUNDSTR
-                        )
+                string.concat(
+                    svg.el(
+                        "pre",
+                        string.concat(
+                            svg.prop("xmlns", "http://www.w3.org/1999/xhtml"),
+                            svg.prop(
+                                "style",
+                                string.concat("color:", fintechie.inverted ? "#FFF" : colorStr, ";font-size: 75px;")
+                            )
+                        ),
+                        fintechieStr
                     )
-                ),
-                // foreignobject is used to wrap the pre tags so that they can be used in the svg
-                svg.el(
-                    "foreignObject",
-                    string.concat(
-                        svg.prop("x", "32"),
-                        svg.prop("y", "187"),
-                        svg.prop("width", "536"),
-                        svg.prop("height", "200")
-                    ),
-                    string.concat(
-                        svg.el(
-                            "pre",
-                            string.concat(
-                                svg.prop(
-                                    "xmlns",
-                                    "http://www.w3.org/1999/xhtml"
-                                ),
-                                svg.prop(
-                                    "style",
-                                    string.concat(
-                                        "color:",
-                                        fintechie.inverted ? "#FFF" : colorStr,
-                                        ";font-size: 75px;"
-                                    )
-                                )
-                            ),
-                            fintechieStr
-                        )
-                    )
-                ),
-                "</svg>"
-            );
+                )
+            ),
+            "</svg>"
+        );
     }
 }

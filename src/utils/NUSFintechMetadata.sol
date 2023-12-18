@@ -9,12 +9,11 @@ library NUSFintechMetadata {
 
     uint256 constant BITS_USED = 16;
 
-    bytes constant HATS = 
-        "none_external affairs_internal affairs_presidential cell_"
+    bytes constant HATS = "none_external affairs_internal affairs_presidential cell_"
         "blockchain_machine learning_software development_quant_alumni";
     bytes constant COLORS = "blue_red_green_yellow_orange_purple";
 
-    function generateAttributes(uint256 _seed, uint256 _department) internal pure returns(string memory) {
+    function generateAttributes(uint256 _seed, uint256 _department) internal pure returns (string memory) {
         string[] memory hats = string(HATS).split("_");
         string[] memory colors = string(COLORS).split("_");
 
@@ -23,22 +22,20 @@ library NUSFintechMetadata {
         bool inverted = (_seed >> 11) & 3 == 0;
 
         // The bits used to determine the color/hue is [13, 16] (0-indexed)
-        // Refer to NUSFintechRenderer.sol to confirm 
+        // Refer to NUSFintechRenderer.sol to confirm
         uint256 color = (_seed >> 13) % 6;
 
-        return 
-            string.concat(
-                '[{"trait_type": "hat", "value":"',
-                hats[_department],
-                '"},',
-                '{"trait_type": "color", "value":"',
-                colors[color],
-                '"},',
-                '{"trait_type": "background", "value":"',
-                inverted ? "inverted" : "normal",
-                '"}',
-                ']'
-            );
+        return string.concat(
+            '[{"trait_type": "hat", "value":"',
+            hats[_department],
+            '"},',
+            '{"trait_type": "color", "value":"',
+            colors[color],
+            '"},',
+            '{"trait_type": "background", "value":"',
+            inverted ? "inverted" : "normal",
+            '"}',
+            "]"
+        );
     }
-
 }
