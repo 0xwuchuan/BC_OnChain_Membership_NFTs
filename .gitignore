@@ -14,5 +14,8 @@ artifacts/
 #Hardhat plugin files
 typechain-types/
 
-.vscode
+# Environment files
 .env
+
+# SVG Preview files
+script/preview

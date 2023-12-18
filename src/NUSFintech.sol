@@ -58,7 +58,7 @@ contract NUSFintech is ERC721, IERC5192, Owned {
             Base64.encode(
                 abi.encodePacked(
                     '{"name":"',
-                    'Fintechie"', // TO-DO: Add name
+                    "Fintechie", // TO-DO: Add name
                     '", "description":"',
                     "NUS Fintechie NFT", // TO-DO: Add description
                     '", "image_data":"data:image/svg+xml;base64,',
