@@ -1,45 +1,35 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
-import {ECDSA} from "solady/src/utils/ECDSA.sol";
-import "forge-std/Test.sol";
-import "../src/NUSFintech.sol";
+import {Test, console2} from "forge-std/Test.sol";
+import {SignatureHelper} from "../script/SignatureHelper.sol";
+import {NUSFintech, InvalidSignature, TokenDoesNotExist, TokenLocked} from "../src/NUSFintech.sol";
 
 contract NUSFintechTest is Test {
-    using ECDSA for bytes32;
+    NUSFintech internal nusFintech;
 
-    NUSFintech private nusFintech;
-
-    uint256 internal offchainSignerPrivateKey;
-    uint256 internal userPrivateKey;
-    address internal offchainSigner;
     address internal user;
+    address internal deployer;
 
     // Used for mint function
     uint256 constant DEPARTMENT = 0;
     bytes internal signature;
 
     function setUp() public {
-        vm.startPrank(address(0xD00D));
+        // Set internal variables
+        user = vm.addr(0xB0B);
+        deployer = address(0xD00D);
+
+        uint256 signerPrivateKey = 0xA11CE;
+        address signer = vm.addr(signerPrivateKey);
+        signature = new SignatureHelper().generateSignature(signerPrivateKey, user, DEPARTMENT);
+
+        vm.startPrank(deployer);
+
         nusFintech = new NUSFintech();
+        nusFintech.setOffchainSigner(signer);
 
-        offchainSignerPrivateKey = 0xA11CE;
-        userPrivateKey = 0xB0B;
-
-        offchainSigner = vm.addr(offchainSignerPrivateKey);
-        user = vm.addr(userPrivateKey);
-
-        nusFintech.setOffchainSigner(offchainSigner);
         vm.stopPrank();
-
-        bytes32 messageHash = keccak256(abi.encodePacked(user, DEPARTMENT))
-            .toEthSignedMessageHash();
-
-        (uint8 v, bytes32 r, bytes32 s) = vm.sign(
-            offchainSignerPrivateKey,
-            messageHash
-        );
-        signature = abi.encodePacked(r, s, v);
     }
 
     function testNameAndSymbol() public {
@@ -48,7 +38,7 @@ contract NUSFintechTest is Test {
     }
 
     function testOwner() public {
-        assertEq(nusFintech.owner(), address(0xD00D), "Owner is incorrect");
+        assertEq(nusFintech.owner(), deployer, "Owner is incorrect");
     }
 
     function test_RevertMintInvalidSignature() public {
@@ -100,18 +90,10 @@ contract NUSFintechTest is Test {
     }
 
     function testSupportsERC5192Interface() public {
-        assertEq(
-            nusFintech.supportsInterface(0xb45a3c0e),
-            true,
-            "ERC5192 interface not supported"
-        );
+        assertEq(nusFintech.supportsInterface(0xb45a3c0e), true, "ERC5192 interface not supported");
     }
 
     function testSupportsERC721Interface() public {
-        assertEq(
-            nusFintech.supportsInterface(0x5b5e139f),
-            true,
-            "ERC721 interface not supported"
-        );
+        assertEq(nusFintech.supportsInterface(0x5b5e139f), true, "ERC721 interface not supported");
     }
 }
