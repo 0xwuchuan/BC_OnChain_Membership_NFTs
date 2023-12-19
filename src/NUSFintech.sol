@@ -16,6 +16,12 @@ error InvalidSignature();
 contract NUSFintech is ERC721, IERC5192, Owned {
     using ECDSA for bytes32;
 
+    string constant COLLECTION_DESCRIPTION =
+        "Commemorate your role in the NUS Fintech Society with an unique Fintechie,"
+        "each living on-chain as a soulbound NFT. \\nFintechies are badges that signify your involvement in the society,"
+        "each distinguished with a hat that reflects your specific role."
+        "Friends of the society can also mint a Fintechie to show their support!";
+
     // Soulbound NFT is locked by default
     bool private immutable isLocked = true;
 
@@ -29,7 +35,7 @@ contract NUSFintech is ERC721, IERC5192, Owned {
     // Refer to NUSFintechRenderer for more on department id
     mapping(uint256 => uint256) private _departments;
 
-    constructor() ERC721("NUSFintech", "NFS") Owned(msg.sender) {}
+    constructor() ERC721("NUSFintechies", "NUS") Owned(msg.sender) {}
 
     /// @notice Mints a new NFT with the given department id
     /// @dev Store department id in _departments mapping for use in tokenURI function
@@ -42,6 +48,7 @@ contract NUSFintech is ERC721, IERC5192, Owned {
 
         _departments[_currentIndex] = department;
         _mint(msg.sender, _currentIndex);
+        emit Locked(_currentIndex);
         ++_currentIndex;
     }
 
@@ -51,6 +58,7 @@ contract NUSFintech is ERC721, IERC5192, Owned {
         uint256 seed = uint256(keccak256(abi.encodePacked(_tokenId)));
         uint256 department = _departments[_tokenId];
 
+        string memory name = NUSFintechMetadata.generateName(seed, department);
         string memory attributes = NUSFintechMetadata.generateAttributes(seed, department);
 
         return string.concat(
@@ -58,15 +66,24 @@ contract NUSFintech is ERC721, IERC5192, Owned {
             Base64.encode(
                 abi.encodePacked(
                     '{"name":"',
-                    "Fintechie", // TO-DO: Add name
+                    name,
                     '", "description":"',
-                    "NUS Fintechie NFT", // TO-DO: Add description
+                    COLLECTION_DESCRIPTION,
                     '", "image_data":"data:image/svg+xml;base64,',
                     Base64.encode(abi.encodePacked(NUSFintechRenderer.render(seed, department))),
                     '", "attributes":',
                     attributes,
                     "}"
                 )
+            )
+        );
+    }
+
+    function contractURI() public pure returns (string memory) {
+        return string.concat(
+            "data:application/json;base64,",
+            Base64.encode(
+                abi.encodePacked('{"name":"', "NUS Fintechies", '", "description":"', COLLECTION_DESCRIPTION, '"}')
             )
         );
     }

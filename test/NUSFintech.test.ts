@@ -26,8 +26,8 @@ describe("NUSFintech", function () {
 
   describe("Deployment", function () {
     it("Should assign correct name and symbol", async function () {
-      assert.equal(await nusFintech.name(), "NUSFintech");
-      assert.equal(await nusFintech.symbol(), "NFS");
+      assert.equal(await nusFintech.name(), "NUSFintechies");
+      assert.equal(await nusFintech.symbol(), "NUS");
     });
 
     it("Should assign deployer as owner", async function () {

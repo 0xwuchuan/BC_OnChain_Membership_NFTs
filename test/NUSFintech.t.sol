@@ -33,8 +33,8 @@ contract NUSFintechTest is Test {
     }
 
     function testNameAndSymbol() public {
-        assertEq(nusFintech.name(), "NUSFintech", "Name is incorrect");
-        assertEq(nusFintech.symbol(), "NFS", "Symbol is incorrect");
+        assertEq(nusFintech.name(), "NUSFintechies", "Name is incorrect");
+        assertEq(nusFintech.symbol(), "NUS", "Symbol is incorrect");
     }
 
     function testOwner() public {
