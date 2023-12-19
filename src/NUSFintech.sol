@@ -18,7 +18,7 @@ contract NUSFintech is ERC721, IERC5192, Owned {
 
     string constant COLLECTION_DESCRIPTION =
         "Commemorate your role in the NUS Fintech Society with an unique Fintechie,"
-        "each living on-chain as a soulbound NFT. \nFintechies are badges that signify your involvement in the society,"
+        "each living on-chain as a soulbound NFT. \\nFintechies are badges that signify your involvement in the society,"
         "each distinguished with a hat that reflects your specific role."
         "Friends of the society can also mint a Fintechie to show their support!";
 
@@ -58,6 +58,7 @@ contract NUSFintech is ERC721, IERC5192, Owned {
         uint256 seed = uint256(keccak256(abi.encodePacked(_tokenId)));
         uint256 department = _departments[_tokenId];
 
+        string memory name = NUSFintechMetadata.generateName(seed, department);
         string memory attributes = NUSFintechMetadata.generateAttributes(seed, department);
 
         return string.concat(
@@ -65,7 +66,7 @@ contract NUSFintech is ERC721, IERC5192, Owned {
             Base64.encode(
                 abi.encodePacked(
                     '{"name":"',
-                    "Fintechie", // TO-DO: Add name
+                    name,
                     '", "description":"',
                     COLLECTION_DESCRIPTION,
                     '", "image_data":"data:image/svg+xml;base64,',
