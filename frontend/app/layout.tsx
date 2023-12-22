@@ -11,7 +11,7 @@ const config = createConfig(
   getDefaultConfig({
     // Required API Keys
     alchemyId: process.env.ALCHEMY_ID, // or infuraId
-    walletConnectProjectId: process.env.WALLETCONNECT_PROJECT_ID,
+    walletConnectProjectId: process.env.WALLETCONNECT_PROJECT_ID || "",
 
     // Required
     appName: "NUS Fintechies",
