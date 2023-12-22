@@ -8,7 +8,7 @@ export default function About() {
   return (
     <div
       id="about"
-      className="mt-5 rounded min-h-screen 
+      className="rounded min-h-screen 
       space-y-5 scroll-mt-40"
     >
       <h1 className="text-3xl font-extrabold">About the Project</h1>

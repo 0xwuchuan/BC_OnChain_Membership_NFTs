@@ -4,8 +4,8 @@ export const ConnectWallet = () => {
   return (
     <div
       className="flex items-center px-6 py-2 mx-6 font-sans 
-    font-medium transition duration-200 rounded-lg bg-opacity-50 
-    bg-[#83C282] hover:bg-opacity-65"
+    font-medium transition duration-100 rounded-lg bg-opacity-50 
+    bg-[#83C282] hover:bg-opacity-65 "
     >
       <ConnectKitButton.Custom>
         {({

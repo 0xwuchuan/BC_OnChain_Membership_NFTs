@@ -26,15 +26,17 @@ export default function Intro() {
         <div className="flex flex-row pt-10 pr-10 space-x-9">
           <Button
             className="py-5 text-base bg-secondary bg-opacity-50
-           hover:bg-secondary hover:bg-opacity-65"
+           hover:bg-secondary hover:bg-opacity-65 transition duration-100 
+           ease-in-out"
           >
             <Link href="#about">About the Project</Link>
           </Button>
           <Button
             className="py-5 text-base bg-primary bg-opacity-50 
-           hover:bg-primary hover:bg-opacity-65"
+           hover:bg-primary hover:bg-opacity-65 transition duration-100 
+           ease-in-out"
           >
-            Mint a Fintechie here
+            <Link href="/mint">Mint a Fintechie here</Link>
           </Button>
         </div>
       </div>

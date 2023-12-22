@@ -20,7 +20,14 @@ export default function AboutCard({
 }: AboutCardProps) {
   return (
     <div
-      className={cn(colSpan, bgColor, "bg-opacity-50 rounded-3xl", "relative")}
+      className={cn(
+        colSpan,
+        bgColor,
+        "bg-opacity-50 rounded-3xl",
+        "relative hover:bg-opacity-65",
+        "transition duration-500 ease-in-out transform hover:-translate-y-1",
+        "hover: scale - 110"
+      )}
     >
       <Image
         className="absolute right-8 bottom-9 opacity-10 -rotate-12"
