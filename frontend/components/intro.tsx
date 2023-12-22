@@ -1,11 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import fintechie from "../public/3.svg";
+import fintechie from "../public/fintechie.svg";
 
 export default function Intro() {
   return (
-    <div className="flex flex-row justify-between pt-24 text-black bg-white">
+    <div
+      className="flex flex-row justify-between pt-24 
+    text-black bg-white"
+    >
       <div>
         <h1 className="py-10 text-6xl font-extrabold">
           NUS <a className="text-primary">Fintechies</a>
@@ -21,10 +24,16 @@ export default function Intro() {
           support.
         </p>
         <div className="flex flex-row pt-10 pr-10 space-x-9">
-          <Button className="py-5 text-base bg-secondary bg-opacity-80 hover:bg-secondary hover:bg-opacity-55">
+          <Button
+            className="py-5 text-base bg-secondary bg-opacity-50
+           hover:bg-secondary hover:bg-opacity-65"
+          >
             <Link href="#about">About the Project</Link>
           </Button>
-          <Button className="py-5 text-base bg-primary bg-opacity-80  hover:bg-primary hover:bg-opacity-55">
+          <Button
+            className="py-5 text-base bg-primary bg-opacity-50 
+           hover:bg-primary hover:bg-opacity-65"
+          >
             Mint a Fintechie here
           </Button>
         </div>

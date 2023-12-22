@@ -6,7 +6,6 @@ import "./globals.css";
 import { cn } from "../lib/utils";
 import { WagmiConfig, createConfig } from "wagmi";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
-import { Navbar } from "@/components/navbar";
 
 const config = createConfig(
   getDefaultConfig({
@@ -36,7 +35,7 @@ export default function RootLayout({
         <link rel="favicon" href="favicon.ico" type="image/x-icon" />
       </Head>
       <WagmiConfig config={config}>
-        <ConnectKitProvider theme="nouns">
+        <ConnectKitProvider mode="light">
           <body
             className={cn(
               "min-h-screen bg-white font-sans antialiased top-10",

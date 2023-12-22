@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export function Navbar() {
   return (
-    <header className="top-0 w-full pt-5 text-black bg-white lg:pt-8">
+    <header className="top-0 w-full pt-12 text-black bg-white lg:pt-8">
       <div className="flex items-center justify-between">
         <div>
           <Link href="/">
@@ -24,7 +24,7 @@ export function Navbar() {
 
 export function NavbarWithWallet() {
   return (
-    <header className="top-0 w-full pt-5 text-black bg-white lg:pt-8">
+    <header className="top-0 w-full pt-12 text-black bg-white lg:pt-8">
       <div className="flex items-center justify-between">
         <div>
           <Link href="/">
