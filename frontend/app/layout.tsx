@@ -1,18 +1,28 @@
-import type { Metadata } from "next";
+"use client";
+
+import Head from "next/head";
 import { Lexend } from "next/font/google";
 import "./globals.css";
-
 import { cn } from "../lib/utils";
+import { WagmiConfig, createConfig } from "wagmi";
+import { ConnectKitProvider, getDefaultConfig } from "connectkit";
+import { Navbar } from "@/components/navbar";
+
+const config = createConfig(
+  getDefaultConfig({
+    // Required API Keys
+    alchemyId: process.env.ALCHEMY_ID, // or infuraId
+    walletConnectProjectId: process.env.WALLETCONNECT_PROJECT_ID,
+
+    // Required
+    appName: "NUS Fintechies",
+  })
+);
 
 const lexend = Lexend({
   subsets: ["latin"],
   variable: "--font-sans",
 });
-
-export const metadata: Metadata = {
-  title: "NUS Fintechies",
-  description: "NUS Fintech Society On-chain Membership NFTs",
-};
 
 export default function RootLayout({
   children,
@@ -21,14 +31,23 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          lexend.variable
-        )}
-      >
-        {children}
-      </body>
+      <Head>
+        <title>NUS Fintechies</title>
+        <link rel="favicon" href="favicon.ico" type="image/x-icon" />
+      </Head>
+      <WagmiConfig config={config}>
+        <ConnectKitProvider theme="nouns">
+          <body
+            className={cn(
+              "min-h-screen bg-white font-sans antialiased top-10",
+              "text-text flex justify-center scroll-smooth",
+              lexend.variable
+            )}
+          >
+            {children}
+          </body>
+        </ConnectKitProvider>
+      </WagmiConfig>
     </html>
   );
 }
