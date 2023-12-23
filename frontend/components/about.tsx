@@ -11,7 +11,7 @@ export default function About() {
       className="rounded min-h-screen 
       space-y-5 scroll-mt-40"
     >
-      <h1 className="text-3xl font-extrabold">About the Project</h1>
+      <h1 className="text-3xl font-extrabold pl-4">About the Project</h1>
       <div className="grid grid-cols-12 grid-rows-2 gap-4 h-1/2">
         <AboutCard
           colSpan="col-span-6"

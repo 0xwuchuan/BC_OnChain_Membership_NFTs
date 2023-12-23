@@ -23,14 +23,14 @@ export default function AboutCard({
       className={cn(
         colSpan,
         bgColor,
-        "bg-opacity-50 rounded-3xl",
+        "bg-opacity-50 rounded-3xl min-h-[200px]",
         "relative hover:bg-opacity-65",
         "transition duration-300 ease-in-out transform hover:-translate-y-1",
-        "hover: scale - 110"
+        "hover:shadow-lg"
       )}
     >
       <Image
-        className="absolute right-8 bottom-9 opacity-10 -rotate-12"
+        className="absolute right-8 bottom-8 opacity-10 -rotate-12"
         src={image}
         alt={imageAlt}
         width={150}
@@ -38,7 +38,7 @@ export default function AboutCard({
       />
       <div className="pt-6 px-8">
         <h2 className="font-semibold text-xl">{title}</h2>
-        <p className="pt-2 max-w-[50%]">{description}</p>
+        <p className="pt-2 max-w-[60%]">{description}</p>
       </div>
     </div>
   );
