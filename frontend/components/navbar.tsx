@@ -1,4 +1,4 @@
-import { ConnectWallet } from "./connectwallet";
+import { ConnectWallet } from "./connectWallet";
 import Image from "next/image";
 import Link from "next/link";
 

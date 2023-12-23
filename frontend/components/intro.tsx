@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { MintButton } from "@/components/mintButton";
 import fintechie from "../public/fintechie.svg";
 
 export default function Intro() {
@@ -31,13 +32,7 @@ export default function Intro() {
           >
             <Link href="#about">About the Project</Link>
           </Button>
-          <Button
-            className="py-5 text-base bg-primary bg-opacity-50 
-           hover:bg-primary hover:bg-opacity-65 transition duration-100 
-           ease-in-out"
-          >
-            <Link href="/mint">Mint a Fintechie here</Link>
-          </Button>
+          <MintButton />
         </div>
       </div>
       <div>

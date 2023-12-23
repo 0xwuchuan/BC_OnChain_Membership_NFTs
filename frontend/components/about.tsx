@@ -1,4 +1,4 @@
-import AboutCard from "@/components/aboutcard";
+import AboutCard from "@/components/aboutCard";
 import chain from "../public/chain.svg";
 import hearts from "../public/hearts.svg";
 import dice from "../public/dice.svg";

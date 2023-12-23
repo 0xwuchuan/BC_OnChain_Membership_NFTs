@@ -1,11 +1,12 @@
 "use client";
 
+import "./globals.css";
 import Head from "next/head";
 import { Lexend } from "next/font/google";
-import "./globals.css";
 import { cn } from "../lib/utils";
 import { WagmiConfig, createConfig } from "wagmi";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
+import { Toaster } from "@/components/ui/toaster";
 
 const config = createConfig(
   getDefaultConfig({
@@ -43,7 +44,8 @@ export default function RootLayout({
               lexend.variable
             )}
           >
-            {children}
+            <main>{children}</main>
+            <Toaster />
           </body>
         </ConnectKitProvider>
       </WagmiConfig>

@@ -25,7 +25,7 @@ export default function AboutCard({
         bgColor,
         "bg-opacity-50 rounded-3xl",
         "relative hover:bg-opacity-65",
-        "transition duration-500 ease-in-out transform hover:-translate-y-1",
+        "transition duration-300 ease-in-out transform hover:-translate-y-1",
         "hover: scale - 110"
       )}
     >
