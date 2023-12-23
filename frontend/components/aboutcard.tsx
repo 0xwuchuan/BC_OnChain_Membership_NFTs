@@ -37,8 +37,10 @@ export function AboutCard({
         height={100}
       />
       <div className="px-8 pt-6">
-        <h2 className="text-xl font-semibold">{title}</h2>
-        <p className="max-w-full pt-2 md:max-w-[65%]">{description}</p>
+        <h2 className="text-lg font-semibold md:text-xl">{title}</h2>
+        <p className="max-w-full pt-2 text-sm sm:text-base md:max-w-[65%]">
+          {description}
+        </p>
       </div>
     </div>
   );

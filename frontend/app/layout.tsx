@@ -45,8 +45,8 @@ export default function RootLayout({
               lexend.variable,
             )}
           >
-            <main>{children}</main>
             <Toaster />
+            <main>{children}</main>
           </body>
         </html>
       </ConnectKitProvider>

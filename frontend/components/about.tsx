@@ -10,10 +10,10 @@ export default function About() {
   return (
     <div
       id="about"
-      className="mb-8 min-h-[75vh] scroll-mt-40 space-y-5 
-      rounded lg:mb-0"
+      className="mb-8 min-h-[75vh] scroll-mt-2 space-y-5 rounded 
+      lg:mb-0 lg:scroll-mt-40"
     >
-      <h1 className="pl-4 text-center text-3xl font-extrabold lg:text-left">
+      <h1 className="mt-5 pl-4 text-center text-xl font-extrabold sm:text-2xl md:text-3xl lg:text-left">
         About the Project
       </h1>
       <div className="flex h-1/2 flex-col gap-4 lg:grid lg:grid-cols-12 lg:grid-rows-2">

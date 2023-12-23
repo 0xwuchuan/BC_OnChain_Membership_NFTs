@@ -13,10 +13,10 @@ export default function Intro() {
         text-black lg:flex-row lg:justify-between lg:pt-24 "
     >
       <div className="flex flex-col justify-center text-center lg:text-left">
-        <h1 className="pb-4 pt-6 text-5xl font-extrabold lg:pb-10 lg:text-6xl">
+        <h1 className="pb-4 pt-6 text-4xl font-extrabold md:text-5xl lg:pb-10 lg:text-6xl">
           NUS <a className="text-primary">Fintechies</a>
         </h1>
-        <p className="m-auto max-w-lg text-lg lg:m-2">
+        <p className="m-auto max-w-lg text-sm  md:text-base lg:m-2 lg:text-lg">
           Commemorate your role in the NUS Fintech Society with an unique
           Fintechie that lives on-chain as a soulbound NFT. <br />
           <br />
@@ -28,11 +28,11 @@ export default function Intro() {
         </p>
         <div
           className="flex flex-row justify-center 
-        space-x-9 pt-10 lg:justify-start lg:pr-10 "
+         space-x-2 pt-10 lg:justify-start lg:space-x-9 lg:pr-10 "
         >
           <Button
-            className="bg-secondary bg-opacity-50 py-5 text-base transition 
-          duration-100 ease-in-out hover:bg-secondary hover:bg-opacity-65"
+            className="bg-secondary bg-opacity-50 py-5 text-sm transition 
+          duration-100 ease-in-out hover:bg-secondary hover:bg-opacity-65 md:text-base"
             asChild
           >
             <Link href="#about">About the Project</Link>

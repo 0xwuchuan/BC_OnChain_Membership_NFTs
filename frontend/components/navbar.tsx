@@ -9,14 +9,14 @@ export function NavbarWithWallet() {
     <header className="w-full bg-white pt-8 text-black">
       <div
         className="flex flex-col items-center justify-between 
-      space-y-4 md:flex-row"
+      space-y-4 sm:flex-row"
       >
         <div>
           <Link href="/">
             <Image
               src="/fintech-logo.webp"
               alt="logo"
-              className="transition duration-200 hover:opacity-75 md:w-40"
+              className="transition duration-200 hover:opacity-75"
               width={120}
               height={70}
             />
