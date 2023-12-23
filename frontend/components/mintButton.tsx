@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { MintForm } from "./mintForm";
+import { MintForm } from "./mintform";
 
 export function MintButton() {
   return (

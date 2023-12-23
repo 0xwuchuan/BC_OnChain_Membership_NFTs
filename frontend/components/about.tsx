@@ -1,6 +1,6 @@
 "use client";
 
-import { AboutCard } from "@/components/aboutCard";
+import { AboutCard } from "@/components/aboutcard";
 import chain from "../public/chain.svg";
 import hearts from "../public/hearts.svg";
 import dice from "../public/dice.svg";

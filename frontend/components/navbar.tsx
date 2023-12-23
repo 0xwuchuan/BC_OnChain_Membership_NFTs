@@ -1,6 +1,6 @@
 "use client";
 
-import { ConnectWallet } from "./connectWallet";
+import { ConnectWallet } from "./connectwallet";
 import Image from "next/image";
 import Link from "next/link";
 

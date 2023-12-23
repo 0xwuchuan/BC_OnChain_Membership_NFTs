@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { MintButton } from "@/components/mintButton";
+import { MintButton } from "@/components/mintbutton";
 import fintechie from "../public/fintechie.svg";
 
 export default function Intro() {

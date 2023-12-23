@@ -1,6 +1,6 @@
 "use client";
 
-import { NavbarWithWallet } from "@/components/navBar";
+import { NavbarWithWallet } from "@/components/navbar";
 import Intro from "@/components/intro";
 import About from "@/components/about";
 
