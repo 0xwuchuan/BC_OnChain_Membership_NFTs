@@ -3,9 +3,9 @@ import { ConnectKitButton } from "connectkit";
 export const ConnectWallet = () => {
   return (
     <div
-      className="flex items-center px-6 py-2 mx-6 font-sans 
-    font-medium transition duration-100 rounded-lg bg-opacity-50 
-    bg-[#83C282] hover:bg-opacity-65 "
+      className="mx-6 flex items-center rounded-lg bg-[#83C282] bg-opacity-50 
+    px-6 py-2 text-sm font-medium transition 
+    duration-100 hover:bg-opacity-65 md:text-base"
     >
       <ConnectKitButton.Custom>
         {({

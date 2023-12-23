@@ -6,7 +6,7 @@ import About from "@/components/about";
 
 export default function Home() {
   return (
-    <div className="flex flex-col max-w-screen-2xl justify-start">
+    <div className="mx-10 flex flex-col justify-start lg:max-w-screen-lg xl:max-w-screen-xl">
       <section className="min-h-screen">
         <NavbarWithWallet />
         <Intro />

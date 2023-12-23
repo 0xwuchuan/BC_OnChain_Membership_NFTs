@@ -67,12 +67,15 @@ export function MintForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 pt-5">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-6 pt-5 text-center md:text-left"
+      >
         <FormField
           control={form.control}
           name="role"
           render={({ field }) => (
-            <FormItem className="flex flex-col w-full">
+            <FormItem className="flex w-full flex-col">
               <FormLabel>Role</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
@@ -81,8 +84,8 @@ export function MintForm() {
                       variant="outline"
                       role="combobox"
                       className={cn(
-                        "w-[200px] justify-between",
-                        !field.value && "text-muted-foreground"
+                        "m-auto w-[200px] justify-between md:m-0",
+                        !field.value && "text-muted-foreground",
                       )}
                     >
                       {field.value
@@ -115,7 +118,7 @@ export function MintForm() {
                               "ml-auto h-4 w-4",
                               role.value === field.value
                                 ? "opacity-100"
-                                : "opacity-0"
+                                : "opacity-0",
                             )}
                           />
                         </CommandItem>
@@ -142,8 +145,8 @@ export function MintForm() {
           )}
         />
         <Button
-          className="text-black bg-primary w-full py-5
-        hover:bg-opacity-65 bg-opacity-50 transition duration-75 ease-linear"
+          className="w-full bg-primary bg-opacity-50 py-5
+        text-black transition duration-75 ease-linear hover:bg-opacity-65"
           type="submit"
         >
           Mint

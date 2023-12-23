@@ -16,7 +16,7 @@ const config = createConfig(
 
     // Required
     appName: "NUS Fintechies",
-  })
+  }),
 );
 
 const lexend = Lexend({
@@ -30,25 +30,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <Head>
-        <title>NUS Fintechies</title>
-        <link rel="favicon" href="favicon.ico" type="image/x-icon" />
-      </Head>
-      <WagmiConfig config={config}>
-        <ConnectKitProvider mode="light">
+    <WagmiConfig config={config}>
+      <ConnectKitProvider mode="light">
+        <html lang="en">
+          <Head>
+            <title>NUS Fintechies</title>
+            <link rel="favicon" href="favicon.ico" type="image/x-icon" />
+          </Head>
+
           <body
             className={cn(
-              "min-h-screen bg-white font-sans antialiased top-10",
-              "text-text flex justify-center scroll-smooth",
-              lexend.variable
+              "min-h-screen bg-white font-sans antialiased ",
+              "flex justify-center scroll-smooth text-text",
+              lexend.variable,
             )}
           >
             <main>{children}</main>
             <Toaster />
           </body>
-        </ConnectKitProvider>
-      </WagmiConfig>
-    </html>
+        </html>
+      </ConnectKitProvider>
+    </WagmiConfig>
   );
 }

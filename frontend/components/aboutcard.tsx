@@ -10,7 +10,7 @@ interface AboutCardProps {
   imageAlt: string;
 }
 
-export default function AboutCard({
+export function AboutCard({
   colSpan,
   bgColor,
   title,
@@ -23,22 +23,22 @@ export default function AboutCard({
       className={cn(
         colSpan,
         bgColor,
-        "bg-opacity-50 rounded-3xl min-h-[200px]",
+        "min-h-[200px] rounded-3xl bg-opacity-50",
         "relative hover:bg-opacity-65",
-        "transition duration-300 ease-in-out transform hover:-translate-y-1",
-        "hover:shadow-lg"
+        "transform transition duration-300 ease-in-out hover:-translate-y-1",
+        "hover:shadow-lg",
       )}
     >
       <Image
-        className="absolute right-8 bottom-8 opacity-10 -rotate-12"
+        className="absolute bottom-8 right-8 rotate-12 opacity-5"
         src={image}
         alt={imageAlt}
         width={150}
         height={100}
       />
-      <div className="pt-6 px-8">
-        <h2 className="font-semibold text-xl">{title}</h2>
-        <p className="pt-2 max-w-[60%]">{description}</p>
+      <div className="px-8 pt-6">
+        <h2 className="text-xl font-semibold">{title}</h2>
+        <p className="max-w-full pt-2 md:max-w-[65%]">{description}</p>
       </div>
     </div>
   );

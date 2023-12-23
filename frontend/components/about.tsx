@@ -1,4 +1,6 @@
-import AboutCard from "@/components/aboutCard";
+"use client";
+
+import { AboutCard } from "@/components/aboutCard";
 import chain from "../public/chain.svg";
 import hearts from "../public/hearts.svg";
 import dice from "../public/dice.svg";
@@ -8,11 +10,13 @@ export default function About() {
   return (
     <div
       id="about"
-      className="rounded min-h-screen 
-      space-y-5 scroll-mt-40"
+      className="mb-8 min-h-[75vh] scroll-mt-40 space-y-5 
+      rounded lg:mb-0"
     >
-      <h1 className="text-3xl font-extrabold pl-4">About the Project</h1>
-      <div className="grid grid-cols-12 grid-rows-2 gap-4 h-1/2">
+      <h1 className="pl-4 text-center text-3xl font-extrabold lg:text-left">
+        About the Project
+      </h1>
+      <div className="flex h-1/2 flex-col gap-4 lg:grid lg:grid-cols-12 lg:grid-rows-2">
         <AboutCard
           colSpan="col-span-6"
           bgColor="bg-secondary"
