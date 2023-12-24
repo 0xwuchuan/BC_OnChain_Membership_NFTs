@@ -6,7 +6,7 @@ import { Lexend } from "next/font/google";
 import { cn } from "../lib/utils";
 import { WagmiConfig, createConfig } from "wagmi";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/sonner";
 
 const config = createConfig(
   getDefaultConfig({

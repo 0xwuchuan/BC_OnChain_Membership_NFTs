@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -27,23 +26,25 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
+import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import { generateSignature } from "@/lib/signature";
 
 const roles = [
-  { label: "None", value: "none" },
-  { label: "External Affairs", value: "ea" },
-  { label: "Internal Affairs", value: "ia" },
-  { label: "Presidential Cell", value: "pc" },
-  { label: "Blockchain", value: "bc" },
-  { label: "Machine Learning", value: "ml" },
-  { label: "Software Development", value: "sd" },
-  { label: "Quant", value: "q" },
-  { label: "Alumni", value: "a" },
+  { label: "None", value: 0 },
+  { label: "External Affairs", value: 1 },
+  { label: "Internal Affairs", value: 2 },
+  { label: "Presidential Cell", value: 3 },
+  { label: "Blockchain", value: 4 },
+  { label: "Machine Learning", value: 5 },
+  { label: "Software Development", value: 6 },
+  { label: "Quant", value: 7 },
+  { label: "Alumni", value: 8 },
 ] as const;
 
 const FormSchema = z.object({
-  role: z.string({
+  role: z.number({
     required_error: "Please select a role.",
   }),
   passCode: z.string().optional(),
@@ -55,14 +56,7 @@ export function MintForm() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+    toast.loading("Sent transaction to chain");
   }
 
   return (
