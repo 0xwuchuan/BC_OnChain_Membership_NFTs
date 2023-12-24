@@ -17,11 +17,11 @@ export default function Intro() {
           NUS <a className="text-primary">Fintechies</a>
         </h1>
         <p className="m-auto max-w-lg text-sm  md:text-base lg:m-2 lg:text-lg">
-          Commemorate your role in the NUS Fintech Society with an unique
+          Commemorate your role in the NUS Fintech Society with a unique
           Fintechie that lives on-chain as a soulbound NFT. <br />
           <br />
-          Fintechies represent your membership and involvement with the
-          society,forever enshrined on the blockchain. <br />
+          Fintechies represent your membership and involvement with the society,
+          forever enshrined on the blockchain. <br />
           <br />
           Friends of the society can also mint your own Fintechie to show your
           support.
