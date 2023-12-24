@@ -1,17 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { MintForm } from "./mintform";
+import { AlertConnect } from "./alertconnect";
+import { useAccount } from "wagmi";
 
 export function MintButton() {
+  const { address, isConnected } = useAccount();
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -23,19 +20,7 @@ export function MintButton() {
           Mint Fintechie
         </Button>
       </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle className="text-center text-lg md:text-left md:text-xl">
-            Mint a Fintechie
-          </DialogTitle>
-          <DialogDescription className="text-center text-sm md:text-left md:text-base">
-            To mint your Fintechie, kindly select your role and enter the
-            corresponding passcode. If you are not a member of the society,
-            choose 'None'.
-          </DialogDescription>
-          <MintForm />
-        </DialogHeader>
-      </DialogContent>
+      {isConnected ? <MintForm /> : <AlertConnect />}
     </Dialog>
   );
 }

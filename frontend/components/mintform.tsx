@@ -7,6 +7,12 @@ import * as z from "zod";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
   Command,
   CommandEmpty,
   CommandGroup,
@@ -60,92 +66,104 @@ export function MintForm() {
   }
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6 pt-5 text-center md:text-left"
-      >
-        <FormField
-          control={form.control}
-          name="role"
-          render={({ field }) => (
-            <FormItem className="flex w-full flex-col">
-              <FormLabel>Role</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      className={cn(
-                        "m-auto w-[200px] justify-between md:m-0",
-                        !field.value && "text-muted-foreground",
-                      )}
-                    >
-                      {field.value
-                        ? roles.find((role) => role.value === field.value)
-                            ?.label
-                        : "Select Role"}
-                      <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-[200px] p-0">
-                  <Command>
-                    <CommandInput
-                      placeholder="Search framework..."
-                      className="h-9"
-                    />
-                    <CommandEmpty>No framework found.</CommandEmpty>
-                    <CommandGroup>
-                      {roles.map((role) => (
-                        <CommandItem
-                          value={role.label}
-                          key={role.value}
-                          onSelect={() => {
-                            form.setValue("role", role.value);
-                          }}
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle className="text-center text-lg md:text-left md:text-xl">
+          Mint a Fintechie
+        </DialogTitle>
+        <DialogDescription className="text-center text-sm md:text-left md:text-base">
+          To mint your Fintechie, kindly select your role and enter the
+          corresponding passcode. If you are not a member of the society, choose
+          'None'.
+        </DialogDescription>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-6 pt-5 text-center md:text-left"
+          >
+            <FormField
+              control={form.control}
+              name="role"
+              render={({ field }) => (
+                <FormItem className="flex w-full flex-col">
+                  <FormLabel>Role</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className={cn(
+                            "m-auto w-[200px] justify-between md:m-0",
+                            !field.value && "text-muted-foreground",
+                          )}
                         >
-                          {role.label}
-                          <CheckIcon
-                            className={cn(
-                              "ml-auto h-4 w-4",
-                              role.value === field.value
-                                ? "opacity-100"
-                                : "opacity-0",
-                            )}
-                          />
-                        </CommandItem>
-                      ))}
-                    </CommandGroup>
-                  </Command>
-                </PopoverContent>
-              </Popover>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="passCode"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Passcode</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter Passcode" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button
-          className="w-full bg-primary bg-opacity-50 py-5
+                          {field.value
+                            ? roles.find((role) => role.value === field.value)
+                                ?.label
+                            : "Select Role"}
+                          <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[200px] p-0">
+                      <Command>
+                        <CommandInput
+                          placeholder="Search framework..."
+                          className="h-9"
+                        />
+                        <CommandEmpty>No framework found.</CommandEmpty>
+                        <CommandGroup>
+                          {roles.map((role) => (
+                            <CommandItem
+                              value={role.label}
+                              key={role.value}
+                              onSelect={() => {
+                                form.setValue("role", role.value);
+                              }}
+                            >
+                              {role.label}
+                              <CheckIcon
+                                className={cn(
+                                  "ml-auto h-4 w-4",
+                                  role.value === field.value
+                                    ? "opacity-100"
+                                    : "opacity-0",
+                                )}
+                              />
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="passCode"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Passcode</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter Passcode" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button
+              className="w-full bg-primary bg-opacity-50 py-5
         text-black transition duration-75 ease-linear hover:bg-opacity-65"
-          type="submit"
-        >
-          Mint
-        </Button>
-      </form>
-    </Form>
+              type="submit"
+            >
+              Mint
+            </Button>
+          </form>
+        </Form>
+      </DialogHeader>
+    </DialogContent>
   );
 }
