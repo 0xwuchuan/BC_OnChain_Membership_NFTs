@@ -8,7 +8,13 @@
     "test": "test"
   },
   "scripts": {
-    "preview": "hardhat run script/preview.js"
+    "preview": "hardhat run script/preview.js",
+    "foundry:test": "forge test",
+    "hardhat:test": "hardhat test",
+    "frontend:install": "cd frontend && npm install",
+    "frontend:dev": "cd frontend && npm run dev",
+    "frontend:build": "cd frontend && npm run build",
+    "frontend:start": "cd frontend && npm run start"
   },
   "keywords": [],
   "author": "",
