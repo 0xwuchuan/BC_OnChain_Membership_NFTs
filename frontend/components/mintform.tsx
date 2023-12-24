@@ -1,5 +1,3 @@
-"use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { useForm } from "react-hook-form";
@@ -34,7 +32,8 @@ import {
 } from "@/components/ui/popover";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
-import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import { useContractWrite, usePrepareContractWrite, useAccount } from "wagmi";
+import { useDebounce } from "usehooks-ts";
 import { generateSignature } from "@/lib/signature";
 
 const roles = [
@@ -60,8 +59,53 @@ export function MintForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
+  const { watch } = form;
+  const watchRole = watch("role", 0);
+  const debouncedRole = useDebounce(watchRole, 500);
+
+  // @dev address should be defined since
+  // this component is only rendered when the user is connected
+  const { address } = useAccount();
+
+  const signature = generateSignature(
+    BigInt(watchRole),
+    process.env.NEXT_PUBLIC_SIGNER_PRIVATE_KEY as `0x${string}`,
+    address || "0x",
+  );
+
+  const { config } = usePrepareContractWrite({
+    address: "0x0",
+    abi: [
+      {
+        inputs: [
+          {
+            internalType: "uint256",
+            name: "department",
+            type: "uint256",
+          },
+          {
+            internalType: "bytes",
+            name: "_signature",
+            type: "bytes",
+          },
+        ],
+        name: "mint",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+    ],
+    functionName: "mint",
+    args: [debouncedRole, signature],
+  });
+
+  const { write } = useContractWrite(config);
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
+    const { role, passCode } = data;
+    // TO-DO:Validate Access Code
+
+    write?.();
     toast.loading("Sent transaction to chain");
   }
 

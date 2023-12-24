@@ -10,7 +10,7 @@ export const generateSignature = async (
     encodePacked(["address", "uint256"], [userAddress, department]),
   );
 
-  const account = privateKeyToAccount(signerPrivateKey || "0x1234");
+  const account = privateKeyToAccount(signerPrivateKey);
 
   const signature = await account.signMessage({
     message: { raw: messageHash },
