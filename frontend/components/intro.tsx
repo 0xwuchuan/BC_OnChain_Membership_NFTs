@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { MintButton } from "@/components/mintbutton";
 import fintechie from "../public/fintechie.svg";
 
-export default function Intro() {
+export function Intro() {
   return (
     <div
       className="flex flex-col space-y-5 bg-white 

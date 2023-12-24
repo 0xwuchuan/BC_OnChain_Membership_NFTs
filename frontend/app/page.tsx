@@ -1,8 +1,8 @@
 "use client";
 
 import { NavbarWithWallet } from "@/components/navbar";
-import Intro from "@/components/intro";
-import About from "@/components/about";
+import { Intro } from "@/components/intro";
+import { About } from "@/components/about";
 
 export default function Home() {
   return (

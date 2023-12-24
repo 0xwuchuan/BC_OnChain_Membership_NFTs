@@ -6,7 +6,7 @@ import hearts from "../public/hearts.svg";
 import dice from "../public/dice.svg";
 import hat from "../public/hat.svg";
 
-export default function About() {
+export function About() {
   return (
     <div
       id="about"
