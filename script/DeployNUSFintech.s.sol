@@ -4,12 +4,13 @@ pragma solidity ^0.8.17;
 import {Script, console2} from "forge-std/Script.sol";
 import {NUSFintech} from "../src/NUSFintech.sol";
 
-contract MyScript is Script {
+contract DeployNUSFintech is Script {
     function run() external {
-        uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
-        vm.startBroadcast(deployerPrivateKey);
+        vm.startBroadcast();
 
-        NUSFintech test = new NUSFintech();
+        NUSFintech nusFintech = new NUSFintech();
+
+        nusFintech.setOffchainSigner(0xDF67f2dC7A1cbed09c0227C771fAa339E9f1A347);
 
         vm.stopBroadcast();
     }
