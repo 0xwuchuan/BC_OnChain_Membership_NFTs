@@ -30,7 +30,7 @@ export async function POST(request: Request) {
   }
 }
 
-export const generateSignature = async (
+const generateSignature = async (
   role: bigint,
   userAddress: `0x${string}`,
 ): Promise<`0x${string}`> => {
