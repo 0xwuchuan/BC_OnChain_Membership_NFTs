@@ -4,15 +4,21 @@ import "./globals.css";
 import Head from "next/head";
 import { Lexend } from "next/font/google";
 import { cn } from "../lib/utils";
-import { WagmiConfig, createConfig } from "wagmi";
+import { WagmiConfig, createConfig, configureChains } from "wagmi";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import { Toaster } from "@/components/ui/sonner";
+import { base, baseGoerli } from "viem/chains";
+
+const alchemyId = process.env.ALCHEMY_ID;
+const walletConnectProjectId = process.env.WALLETCONNECT_PROJECT_ID as string;
+const chains = [base, baseGoerli];
 
 const config = createConfig(
   getDefaultConfig({
     // Required API Keys
-    alchemyId: process.env.ALCHEMY_ID, // or infuraId
-    walletConnectProjectId: process.env.WALLETCONNECT_PROJECT_ID as string,
+    alchemyId, // or infuraId
+    walletConnectProjectId,
+    chains,
 
     // Required
     appName: "NUS Fintechies",

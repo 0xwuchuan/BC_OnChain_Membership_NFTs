@@ -30,12 +30,12 @@ library NUSFintechRenderer {
     // color  (hex)   (decimal)  (binary)                   << 8(unused) + 24 bits * index
     // ====================================================================================
     // blue   #3E7FED (04095981) (001111100111111111101101) << 32                  * 0
-    // red    #B9474D (12142413) (101110010100011101001101) << 32                  * 1
+    // red    #EC5B5B (15489883) (111011000101101101011011) << 32                  * 1
     // green  #83C282 (08635010) (100000111100001010000010) << 32                  * 2
     // yellow #FDC63A (16631354) (111111011100011000111010) << 32                  * 3
     // orange #FD973A (16619322) (111111011001011100111010) << 32                  * 4
     // purple #B954F7 (12145911) (101110010101010011110111) << 32                  * 5
-    uint256 constant COLORS = 0x3E7FED00B9474D0083C28200FDC63A00FD973A00B954F7;
+    uint256 constant COLORS = 0x3E7FED00EC5B5B0083C28200FDC63A00FD973A00B954F7;
 
     /// @notice base64 encoded subset of font
     string constant FONTSTR =

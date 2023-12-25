@@ -32,9 +32,9 @@ import {
 } from "@/components/ui/popover";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
-import { useContractWrite, usePrepareContractWrite, useAccount } from "wagmi";
-import { useDebounce } from "usehooks-ts";
-import { generateSignature } from "@/lib/signature";
+import { useContractWrite, useAccount, useWaitForTransaction } from "wagmi";
+import { generateSignature } from "@/lib/generateSignature";
+import { Hex } from "viem";
 
 const roles = [
   { label: "None", value: 0 },
@@ -59,22 +59,16 @@ export function MintForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
-  const { watch } = form;
-  const watchRole = watch("role", 0);
-  const debouncedRole = useDebounce(watchRole, 500);
 
   // @dev address should be defined since
   // this component is only rendered when the user is connected
   const { address } = useAccount();
 
-  const signature = generateSignature(
-    BigInt(watchRole),
-    process.env.NEXT_PUBLIC_SIGNER_PRIVATE_KEY as `0x${string}`,
-    address || "0x",
-  );
+  const testNetAddress = "0xF0b1CDD80a483730C8072A2dE8F0f29009aDc757";
 
-  const { config } = usePrepareContractWrite({
-    address: "0x0",
+  const { data, error, isError, write } = useContractWrite({
+    chainId: 84531,
+    address: testNetAddress,
     abi: [
       {
         inputs: [
@@ -94,19 +88,36 @@ export function MintForm() {
         stateMutability: "nonpayable",
         type: "function",
       },
+      ,
     ],
     functionName: "mint",
-    args: [debouncedRole, signature],
+    onError(error) {
+      toast.error(error?.message);
+    },
+    onSuccess() {
+      toast.success("Transaction success");
+    },
   });
 
-  const { write } = useContractWrite(config);
+  const { isLoading, isSuccess } = useWaitForTransaction({
+    hash: data?.hash,
+  });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    const { role, passCode } = data;
-    // TO-DO:Validate Access Code
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    try {
+      const { role, passCode } = data;
+      // TO-DO:Validate Access Code
 
-    write?.();
-    toast.loading("Sent transaction to chain");
+      const signature = (await generateSignature(
+        role,
+        address as `0x${string}`,
+      )) as Hex;
+
+      write?.({ args: [role, signature] });
+      // toast.loading("Sent transaction to chain");
+    } catch {
+      toast.error(error?.message);
+    }
   }
 
   return (
