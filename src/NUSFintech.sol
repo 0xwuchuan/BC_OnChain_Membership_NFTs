@@ -16,11 +16,11 @@ error InvalidSignature();
 contract NUSFintech is ERC721, IERC5192, Owned {
     using ECDSA for bytes32;
 
-    string constant COLLECTION_DESCRIPTION =
-        "Commemorate your role in the NUS Fintech Society with an unique Fintechie,"
-        "each living on-chain as a soulbound NFT. \\nFintechies are badges that signify your involvement in the society,"
-        "each distinguished with a hat that reflects your specific role."
-        "Friends of the society can also mint a Fintechie to show their support!";
+    string constant COLLECTION_DESCRIPTION = "Commemorate your role in the NUS Fintech Society with "
+        "a unique Fintechie that lives on-chain as a soulbound NFT.\\n\\n"
+        "Fintechies represent your membership and involvement with the society, "
+        "forever enshrined on the blockchain.\\n\\n Friends of "
+        "the society can also mint your own Fintechie to show your support.";
 
     // Soulbound NFT is locked by default
     bool private immutable isLocked = true;
