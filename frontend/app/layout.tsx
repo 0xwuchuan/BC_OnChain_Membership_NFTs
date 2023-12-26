@@ -9,15 +9,16 @@ import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import { Toaster } from "@/components/ui/sonner";
 import { base, baseGoerli } from "viem/chains";
 
-const alchemyId = process.env.ALCHEMY_ID;
-const walletConnectProjectId = process.env.WALLETCONNECT_PROJECT_ID as string;
+const alchemyId = process.env.NEXT_PUBLIC_ALCHEMY_ID;
+const walletConnectProjectId = process.env
+  .NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID as string;
 const chains = [base, baseGoerli];
 
 const config = createConfig(
   getDefaultConfig({
     // Required API Keys
-    alchemyId, // or infuraId
-    walletConnectProjectId,
+    alchemyId: alchemyId, // or infuraId
+    walletConnectProjectId: walletConnectProjectId,
     chains,
 
     // Required
