@@ -66,7 +66,7 @@ export function MintForm() {
 
   const testNetAddress = "0xF0b1CDD80a483730C8072A2dE8F0f29009aDc757";
 
-  const { data, error, isError, write } = useContractWrite({
+  const { data, error, write } = useContractWrite({
     chainId: 84531,
     address: testNetAddress,
     abi: [
@@ -95,12 +95,24 @@ export function MintForm() {
       toast.error(error?.message);
     },
     onSuccess() {
-      toast.success("Transaction success");
+      toast.loading("Transaction sent");
     },
   });
 
   const { isLoading, isSuccess } = useWaitForTransaction({
     hash: data?.hash,
+    onSuccess(data) {
+      toast.success("Fintechie minted", {
+        duration: 10000,
+        action: {
+          label: "View on Basescan",
+          onClick: () =>
+            window.open(
+              `https://goerli.basescan.org/tx/${data?.transactionHash}`,
+            ),
+        },
+      });
+    },
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
@@ -114,7 +126,6 @@ export function MintForm() {
       )) as Hex;
 
       write?.({ args: [role, signature] });
-      // toast.loading("Sent transaction to chain");
     } catch {
       toast.error(error?.message);
     }
