@@ -19,4 +19,4 @@ typechain-types/
 .env
 
 # SVG Preview files
-script/preview
+scripts/preview
