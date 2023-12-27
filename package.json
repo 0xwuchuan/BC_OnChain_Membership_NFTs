@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "preview": "hardhat run script/preview.js",
+    "preview": "hardhat run scripts/preview.ts",
     "foundry:test": "forge test",
     "hardhat:test": "hardhat test",
     "frontend:install": "cd frontend && npm install",
@@ -22,6 +22,10 @@
   "devDependencies": {
     "@nomicfoundation/hardhat-foundry": "^1.1.1",
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
-    "hardhat": "^2.19.2"
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "hardhat": "^2.19.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
