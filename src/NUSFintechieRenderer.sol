@@ -4,7 +4,7 @@ pragma solidity ^0.8.17;
 import {svg} from "hot-chain-svg/SVG.sol";
 import {LibString} from "solady/src/utils/LibString.sol";
 
-library NUSFintechRenderer {
+library NUSFintechieRenderer {
     using LibString for uint256;
 
     /// @notice traits that make up the art (Fintechie for now no idea what to name it)

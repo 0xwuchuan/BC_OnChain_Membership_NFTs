@@ -3,7 +3,7 @@ pragma solidity ^0.8.17;
 
 import {LibString} from "solady/src/utils/LibString.sol";
 
-library NUSFintechMetadata {
+library NUSFintechieMetadata {
     using LibString for string;
     using LibString for uint256;
 
