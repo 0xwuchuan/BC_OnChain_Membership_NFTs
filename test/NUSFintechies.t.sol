@@ -3,16 +3,20 @@ pragma solidity ^0.8.17;
 
 import {Test, console2} from "forge-std/Test.sol";
 import {SignatureHelper} from "../script/SignatureHelper.sol";
-import {NUSFintech, InvalidSignature, TokenDoesNotExist, TokenLocked} from "../src/NUSFintech.sol";
+import {
+    NUSFintechies, InvalidSignature, TokenDoesNotExist, TokenLocked, MintNotActive
+} from "../src/NUSFintechies.sol";
+import {NUSFintechieRenderer} from "../src/NUSFintechieRenderer.sol";
+import {NUSFintechieMetadata} from "../src/NUSFintechieMetadata.sol";
 
-contract NUSFintechTest is Test {
-    NUSFintech internal nusFintech;
+contract NUSFintechiesTest is Test {
+    NUSFintechies internal nusFintech;
 
     address internal user;
     address internal deployer;
 
     // Used for mint function
-    uint256 constant DEPARTMENT = 0;
+    uint256 constant ROLE = 0;
     bytes internal signature;
 
     function setUp() public {
@@ -22,11 +26,13 @@ contract NUSFintechTest is Test {
 
         uint256 signerPrivateKey = 0xA11CE;
         address signer = vm.addr(signerPrivateKey);
-        signature = new SignatureHelper().generateSignature(signerPrivateKey, user, DEPARTMENT);
+        signature = new SignatureHelper().generateSignature(signerPrivateKey, user, ROLE);
 
         vm.startPrank(deployer);
 
-        nusFintech = new NUSFintech();
+        NUSFintechieRenderer renderer = new NUSFintechieRenderer();
+        NUSFintechieMetadata metadata = new NUSFintechieMetadata();
+        nusFintech = new NUSFintechies(address(renderer), address(metadata));
         nusFintech.setOffchainSigner(signer);
 
         vm.stopPrank();
@@ -48,7 +54,7 @@ contract NUSFintechTest is Test {
 
     function testMint() public {
         vm.prank(user);
-        nusFintech.mint(DEPARTMENT, signature);
+        nusFintech.mint(ROLE, signature);
         assertEq(nusFintech.balanceOf(user), 1);
     }
 
@@ -64,7 +70,7 @@ contract NUSFintechTest is Test {
 
     function test_RevertApprove() public {
         vm.startPrank(user);
-        nusFintech.mint(DEPARTMENT, signature);
+        nusFintech.mint(ROLE, signature);
 
         vm.expectRevert(TokenLocked.selector);
         nusFintech.approve(address(0xC0DE), 1);
@@ -73,7 +79,7 @@ contract NUSFintechTest is Test {
 
     function test_RevertSetApprovalForAll() public {
         vm.startPrank(user);
-        nusFintech.mint(DEPARTMENT, signature);
+        nusFintech.mint(ROLE, signature);
 
         vm.expectRevert(TokenLocked.selector);
         nusFintech.setApprovalForAll(address(0xC0DE), true);
@@ -82,7 +88,7 @@ contract NUSFintechTest is Test {
 
     function test_RevertTransferFrom() public {
         vm.startPrank(user);
-        nusFintech.mint(DEPARTMENT, signature);
+        nusFintech.mint(ROLE, signature);
 
         vm.expectRevert(TokenLocked.selector);
         nusFintech.transferFrom(user, address(0xC0DE), 1);
@@ -95,5 +101,27 @@ contract NUSFintechTest is Test {
 
     function testSupportsERC721Interface() public {
         assertEq(nusFintech.supportsInterface(0x5b5e139f), true, "ERC721 interface not supported");
+    }
+
+    function test_SetRenderer() public {
+        NUSFintechieRenderer newRenderer = new NUSFintechieRenderer();
+        vm.prank(deployer);
+        nusFintech.setRendererAddress(address(newRenderer));
+        assertEq(nusFintech.rendererAddress(), address(newRenderer), "Renderer address is incorrect");
+    }
+
+    function test_SetMetadata() public {
+        NUSFintechieMetadata newMetadata = new NUSFintechieMetadata();
+        vm.prank(deployer);
+        nusFintech.setMetadataAddress(address(newMetadata));
+        assertEq(nusFintech.metadataAddress(), address(newMetadata), "Metadata address is incorrect");
+    }
+
+    function test_RevertMintNotActive() public {
+        vm.startPrank(deployer);
+        nusFintech.setOffchainSigner(address(0));
+        vm.expectRevert(MintNotActive.selector);
+        nusFintech.mint(ROLE, signature);
+        vm.stopPrank();
     }
 }

@@ -1,19 +1,30 @@
 import { expect, assert } from "chai";
 import { ethers } from "hardhat";
-import { NUSFintech } from "../typechain-types";
+import { NUSFintechies } from "../typechain-types";
 import { describe } from "mocha";
 import { Signer } from "ethers";
 import signWhitelist from "./test-helpers";
 
-describe("NUSFintech", function () {
-  let nusFintech: NUSFintech, owner: Signer, ownerAddress: string;
+describe("NUSFintechies", function () {
+  let nusFintech: NUSFintechies, owner: Signer, ownerAddress: string;
   let user1: Signer, user2: Signer;
   let user1Address: string, user2Address: string;
 
   before(
     "Deploy NUSFintech.sol and set offchain signing address",
     async function () {
-      nusFintech = await ethers.deployContract("NUSFintech");
+      const renderer = await ethers.deployContract("NUSFintechieRenderer");
+      const metadata = await ethers.deployContract("NUSFintechieMetadata");
+
+      const nusFintechConstructorArguments = [
+        renderer.getAddress(),
+        metadata.getAddress(),
+      ];
+
+      nusFintech = await ethers.deployContract(
+        "NUSFintechies",
+        nusFintechConstructorArguments
+      );
 
       [owner, user1, user2] = await ethers.getSigners();
       ownerAddress = await owner.getAddress();
@@ -36,18 +47,19 @@ describe("NUSFintech", function () {
   });
 
   describe("Mint", function () {
-    let department = 0;
+    let role = 0;
 
     it("Should revert with invalid signature for mint function", async function () {
-      await expect(
-        nusFintech.mint(department, "0x")
-      ).to.be.revertedWithCustomError(nusFintech, "InvalidSignature");
+      await expect(nusFintech.mint(role, "0x")).to.be.revertedWithCustomError(
+        nusFintech,
+        "InvalidSignature"
+      );
     });
 
     it("Should accept mint with valid signature", async function () {
-      let sig = await signWhitelist(department, owner, user1Address);
+      let sig = await signWhitelist(role, owner, user1Address);
 
-      await expect(nusFintech.connect(user1).mint(department, sig))
+      await expect(nusFintech.connect(user1).mint(role, sig))
         .to.emit(nusFintech, "Transfer")
         .withArgs(ethers.ZeroAddress, user1Address, 1);
     });
