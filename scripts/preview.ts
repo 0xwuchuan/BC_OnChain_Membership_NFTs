@@ -21,7 +21,11 @@ exec(
 
     const regex = /data:application\/json;base64,[a-zA-Z0-9+/]+=*/g;
     const base64Jsons = stdout.match(regex);
-    const matches: { image_data: string; attributes: Attribute[] }[] = [];
+    const matches: {
+      name: string;
+      image_data: string;
+      attributes: Attribute[];
+    }[] = [];
 
     base64Jsons?.forEach((base64Json) => {
       const startIndex = base64Json.indexOf(",") + 1;
@@ -29,13 +33,16 @@ exec(
 
       try {
         const decodedJson = atob(encodedJson);
+        console.log(decodedJson);
         const parsedJson = JSON.parse(decodedJson);
 
         if (
+          parsedJson.name !== undefined &&
           parsedJson.image_data !== undefined &&
           parsedJson.attributes !== undefined
         ) {
           matches.push({
+            name: parsedJson.name,
             image_data: parsedJson.image_data,
             attributes: parsedJson.attributes,
           });
@@ -69,7 +76,10 @@ exec(
       @import url('https://fonts.googleapis.com/css2?family=Lexend&display=swap');
       </style>
       </head>
-      <body >${reactComponentHtml}</body></html>`,
+      <body >
+      ${reactComponentHtml}
+      </body>
+      </html>`,
       { flag: "w" },
       function (err) {
         if (err) {

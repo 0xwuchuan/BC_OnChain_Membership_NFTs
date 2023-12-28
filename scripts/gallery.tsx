@@ -5,11 +5,12 @@ export interface Attribute {
   value: string;
 }
 interface ImageCardProps {
+  name: string;
   image: string;
   attributes: Attribute[];
 }
 
-export const ImageCard = ({ image, attributes }: ImageCardProps) => (
+export const ImageCard = ({ name, image, attributes }: ImageCardProps) => (
   <div
     style={{
       display: "flex",
@@ -26,6 +27,14 @@ export const ImageCard = ({ image, attributes }: ImageCardProps) => (
         marginLeft: "2rem",
       }}
     >
+      <div
+        style={{
+          fontSize: "2rem",
+          fontFamily: "Lexend",
+        }}
+      >
+        {name}
+      </div>
       {attributes.map((attribute, index) => (
         <div
           key={index}
@@ -43,7 +52,7 @@ export const ImageCard = ({ image, attributes }: ImageCardProps) => (
 );
 
 interface ImageGalleryProps {
-  data: { image_data: string; attributes: Attribute[] }[];
+  data: { name: string; image_data: string; attributes: Attribute[] }[];
 }
 
 export const ImageGallery = ({ data }: ImageGalleryProps) => (
@@ -58,6 +67,7 @@ export const ImageGallery = ({ data }: ImageGalleryProps) => (
     {data.map((item, index) => (
       <ImageCard
         key={index}
+        name={item.name}
         image={item.image_data}
         attributes={item.attributes}
       />
