@@ -1,19 +1,30 @@
 import { expect, assert } from "chai";
 import { ethers } from "hardhat";
-import { NUSFintech } from "../typechain-types";
+import { NUSFintechies } from "../typechain-types";
 import { describe } from "mocha";
 import { Signer } from "ethers";
 import signWhitelist from "./test-helpers";
 
-describe("NUSFintech", function () {
-  let nusFintech: NUSFintech, owner: Signer, ownerAddress: string;
+describe("NUSFintechies", function () {
+  let nusFintech: NUSFintechies, owner: Signer, ownerAddress: string;
   let user1: Signer, user2: Signer;
   let user1Address: string, user2Address: string;
 
   before(
     "Deploy NUSFintech.sol and set offchain signing address",
     async function () {
-      nusFintech = await ethers.deployContract("NUSFintech");
+      const renderer = await ethers.deployContract("NUSFintechieRenderer");
+      const metadata = await ethers.deployContract("NUSFintechieMetadata");
+
+      const nusFintechConstructorArguments = [
+        renderer.getAddress(),
+        metadata.getAddress(),
+      ];
+
+      nusFintech = await ethers.deployContract(
+        "NUSFintechies",
+        nusFintechConstructorArguments
+      );
 
       [owner, user1, user2] = await ethers.getSigners();
       ownerAddress = await owner.getAddress();

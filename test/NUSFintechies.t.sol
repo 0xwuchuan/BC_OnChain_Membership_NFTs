@@ -3,10 +3,12 @@ pragma solidity ^0.8.17;
 
 import {Test, console2} from "forge-std/Test.sol";
 import {SignatureHelper} from "../script/SignatureHelper.sol";
-import {NUSFintech, InvalidSignature, TokenDoesNotExist, TokenLocked} from "../src/NUSFintech.sol";
+import {NUSFintechies, InvalidSignature, TokenDoesNotExist, TokenLocked} from "../src/NUSFintechies.sol";
+import {NUSFintechieRenderer} from "../src/NUSFintechieRenderer.sol";
+import {NUSFintechieMetadata} from "../src/NUSFintechieMetadata.sol";
 
-contract NUSFintechTest is Test {
-    NUSFintech internal nusFintech;
+contract NUSFintechiesTest is Test {
+    NUSFintechies internal nusFintech;
 
     address internal user;
     address internal deployer;
@@ -26,7 +28,9 @@ contract NUSFintechTest is Test {
 
         vm.startPrank(deployer);
 
-        nusFintech = new NUSFintech();
+        NUSFintechieRenderer renderer = new NUSFintechieRenderer();
+        NUSFintechieMetadata metadata = new NUSFintechieMetadata();
+        nusFintech = new NUSFintechies(address(renderer), address(metadata));
         nusFintech.setOffchainSigner(signer);
 
         vm.stopPrank();
