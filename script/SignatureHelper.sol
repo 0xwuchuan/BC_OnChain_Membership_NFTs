@@ -7,12 +7,12 @@ import {Script} from "forge-std/Script.sol";
 contract SignatureHelper is Script {
     using ECDSA for bytes32;
 
-    function generateSignature(uint256 signerPrivateKey, address userMinting, uint256 department)
+    function generateSignature(uint256 signerPrivateKey, address userMinting, uint256 role)
         external
         pure
         returns (bytes memory)
     {
-        bytes32 messageHash = keccak256(abi.encodePacked(userMinting, department)).toEthSignedMessageHash();
+        bytes32 messageHash = keccak256(abi.encodePacked(userMinting, role)).toEthSignedMessageHash();
 
         (uint8 v, bytes32 r, bytes32 s) = vm.sign(signerPrivateKey, messageHash);
         bytes memory signature = abi.encodePacked(r, s, v);

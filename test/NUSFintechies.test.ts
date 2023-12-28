@@ -47,18 +47,19 @@ describe("NUSFintechies", function () {
   });
 
   describe("Mint", function () {
-    let department = 0;
+    let role = 0;
 
     it("Should revert with invalid signature for mint function", async function () {
-      await expect(
-        nusFintech.mint(department, "0x")
-      ).to.be.revertedWithCustomError(nusFintech, "InvalidSignature");
+      await expect(nusFintech.mint(role, "0x")).to.be.revertedWithCustomError(
+        nusFintech,
+        "InvalidSignature"
+      );
     });
 
     it("Should accept mint with valid signature", async function () {
-      let sig = await signWhitelist(department, owner, user1Address);
+      let sig = await signWhitelist(role, owner, user1Address);
 
-      await expect(nusFintech.connect(user1).mint(department, sig))
+      await expect(nusFintech.connect(user1).mint(role, sig))
         .to.emit(nusFintech, "Transfer")
         .withArgs(ethers.ZeroAddress, user1Address, 1);
     });

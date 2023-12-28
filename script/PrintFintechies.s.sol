@@ -27,9 +27,9 @@ contract PrintFintechies is Script {
 
         vm.startPrank(user);
         for (uint256 i = 0; i < 100;) {
-            uint256 department = i % 9; // Department id is 0-8
-            bytes memory sig = new SignatureHelper().generateSignature(signerPrivateKey, user, department);
-            nusFintech.mint(department, sig);
+            uint256 role = i % 9; // Department id is 0-8
+            bytes memory sig = new SignatureHelper().generateSignature(signerPrivateKey, user, role);
+            nusFintech.mint(role, sig);
             unchecked {
                 ++i;
             }

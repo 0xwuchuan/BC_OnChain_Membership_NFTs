@@ -48,6 +48,7 @@ contract NUSFintechies is ERC721, IERC5192, Owned {
     /// @param _role role of nft to be minted (0-8 inclusive)
     /// @param _signature signature of mint request
     function mint(uint256 _role, bytes calldata _signature) external {
+        if (_offchainSigner == address(0)) revert MintNotActive();
         if (!_verifySignature(_role, _signature)) {
             revert InvalidSignature();
         }
@@ -104,11 +105,14 @@ contract NUSFintechies is ERC721, IERC5192, Owned {
     // ERC5192 (Minimimal Soulbound NFTs) Implementation
     // =========================================================================
 
+    /// @notice Modifier that reverts if token is locked
+    /// @dev Will always revert since isLocked is immutable
     modifier checkLock() {
         if (isLocked) revert TokenLocked();
         _;
     }
 
+    /// @inheritdoc IERC5192
     function locked(uint256 tokenId) external view returns (bool) {
         if (_ownerOf[tokenId] == address(0)) revert TokenDoesNotExist();
         return isLocked;
@@ -164,8 +168,6 @@ contract NUSFintechies is ERC721, IERC5192, Owned {
     /// @param _signature signature of mint request
     /// @return true if signature is valid, false otherwise
     function _verifySignature(uint256 _role, bytes memory _signature) private view returns (bool) {
-        if (_offchainSigner == address(0)) revert MintNotActive();
-
         bytes32 messageHash = keccak256(abi.encodePacked(msg.sender, _role));
 
         address signer = messageHash.toEthSignedMessageHash().recover(_signature);
