@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     const res = await request.json();
     const { role, userAddress } = res;
 
-    if (!role || !userAddress) {
+    if (role == undefined || userAddress == undefined) {
       return new Response(JSON.stringify({ error: "Bad Request" }), {
         status: 400,
       });

@@ -34,6 +34,7 @@ import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { useContractWrite, useAccount, useWaitForTransaction } from "wagmi";
 import { generateSignature } from "@/lib/generateSignature";
+import { validatePassCode } from "@/lib/validatePasscode";
 import { Hex } from "viem";
 
 const roles = [
@@ -118,7 +119,12 @@ export function MintForm() {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
       const { role, passCode } = data;
-      // TO-DO:Validate Access Code
+      if (role !== 0) {
+        const isValid = await validatePassCode(role, passCode as string);
+        if (!isValid) {
+          throw new Error("Invalid passcode");
+        }
+      }
 
       const signature = (await generateSignature(
         role,
@@ -126,7 +132,11 @@ export function MintForm() {
       )) as Hex;
 
       write?.({ args: [role, signature] });
-    } catch {
+    } catch (err) {
+      if (err) {
+        toast.error("Invalid passcode");
+        return;
+      }
       toast.error(error?.message);
     }
   }

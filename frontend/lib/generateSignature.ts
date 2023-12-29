@@ -5,7 +5,7 @@ export async function generateSignature(
   let data;
 
   try {
-    const response = await fetch("/api/", {
+    const response = await fetch("/api/signature", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -52,13 +52,7 @@ export default function RootLayout({
               lexend.variable,
             )}
           >
-            <Toaster
-              theme="light"
-              richColors
-              closeButton
-              expand
-              visibleToasts={3}
-            />
+            <Toaster theme="light" richColors closeButton />
             <main>{children}</main>
           </body>
         </html>
