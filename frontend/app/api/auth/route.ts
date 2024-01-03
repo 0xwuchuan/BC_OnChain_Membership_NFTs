@@ -7,8 +7,8 @@ const roleToPassCode: RoleToPassCode = {
   4: process.env.BC || "",
   5: process.env.ML || "",
   6: process.env.SD || "",
-  7: process.env.Q || "",
-  8: process.env.A || "",
+  7: process.env.QUANT || "",
+  8: process.env.ALUMNI || "",
 };
 
 export async function POST(request: Request) {
