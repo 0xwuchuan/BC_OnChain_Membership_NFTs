@@ -1,3 +1,14 @@
+# NUS Fintechies Frontend
+
+## Directories
+
+```ml
+├─ app ─ "Next.js App Router"
+├─ components ─ "UI Components"
+├─ lib ─ "Utility/Helper functions"
+├─ public ─ "Assets and images"
+```
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
