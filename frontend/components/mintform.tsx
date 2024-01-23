@@ -65,7 +65,7 @@ export function MintForm() {
   // this component is only rendered when the user is connected
   const { address } = useAccount();
 
-  const testNetAddress = "0xF0b1CDD80a483730C8072A2dE8F0f29009aDc757";
+  const testNetAddress = "0xA9478d6b2192D10d2B12b49829ADE361F539551F";
 
   const { data, error, write } = useContractWrite({
     chainId: 84531,
@@ -75,7 +75,7 @@ export function MintForm() {
         inputs: [
           {
             internalType: "uint256",
-            name: "department",
+            name: "_role",
             type: "uint256",
           },
           {
