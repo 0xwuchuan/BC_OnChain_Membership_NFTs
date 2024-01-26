@@ -7,12 +7,12 @@ import { cn } from "../lib/utils";
 import { WagmiConfig, createConfig, configureChains } from "wagmi";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import { Toaster } from "@/components/ui/sonner";
-import { base, baseGoerli } from "viem/chains";
+import { base, baseGoerli, baseSepolia } from "viem/chains";
 
 const alchemyId = process.env.NEXT_PUBLIC_ALCHEMY_ID;
 const walletConnectProjectId = process.env
   .NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID as string;
-const chains = [base, baseGoerli];
+const chains = [baseSepolia, base];
 
 const config = createConfig(
   getDefaultConfig({

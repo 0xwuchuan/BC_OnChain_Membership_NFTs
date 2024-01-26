@@ -65,10 +65,10 @@ export function MintForm() {
   // this component is only rendered when the user is connected
   const { address } = useAccount();
 
-  const testNetAddress = "0xA9478d6b2192D10d2B12b49829ADE361F539551F";
+  const testNetAddress = "0x340e220Cca5F00B45d78Aa367170D34514950992";
 
   const { data, error, write } = useContractWrite({
-    chainId: 84531,
+    chainId: 84532,
     address: testNetAddress,
     abi: [
       {
@@ -106,10 +106,10 @@ export function MintForm() {
       toast.success("Fintechie minted", {
         duration: 10000,
         action: {
-          label: "View on Basescan",
+          label: "View your transaction",
           onClick: () =>
             window.open(
-              `https://goerli.basescan.org/tx/${data?.transactionHash}`,
+              `https://base-sepolia.blockscout.com/tx/${data?.transactionHash}`,
             ),
         },
       });
