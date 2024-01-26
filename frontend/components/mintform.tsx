@@ -171,10 +171,11 @@ export function MintForm() {
                           role="combobox"
                           className={cn(
                             "m-auto w-[200px] justify-between md:m-0",
-                            !field.value && "text-muted-foreground",
+                            !(field.value || field.value == 0) &&
+                              "text-muted-foreground",
                           )}
                         >
-                          {field.value
+                          {field.value || field.value === 0
                             ? roles.find((role) => role.value === field.value)
                                 ?.label
                             : "Select Role"}
